@@ -1,0 +1,1 @@
+This was a list about Analog Discovery 2 which was used in our lab.
