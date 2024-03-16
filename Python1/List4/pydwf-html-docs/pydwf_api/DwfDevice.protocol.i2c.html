@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I²C protocol &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CAN protocol" href="DwfDevice.protocol.can.html" />
+    <link rel="prev" title="SPI protocol" href="DwfDevice.protocol.spi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pydwf
+              <img src="../_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome to <em>pydwf</em> !</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.html">The <em>DwfDevice</em> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogIn.html">Analog input instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogOut.html">Analog output instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogIO.html">Analog I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogImpedance.html">Analog impedance measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalIn.html">Digital input instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalOut.html">Digital output instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalIO.html">Digital I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.uart.html">UART protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.spi.html">SPI protocol</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">I²C protocol</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-i2c-protocol-functionality">Using the I²C protocol functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#protocoli2c-reference"><em>ProtocolI2C</em> reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pydwf.core.api.protocol_i2c.ProtocolI2C"><code class="docutils literal notranslate"><span class="pre">ProtocolI2C</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.can.html">CAN protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.swd.html">SWD protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_exceptions.html"><em>pydwf</em> exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DigilentWaveformsDevices.html">Digilent Waveforms devices and their configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/C_Library.html">About the DWF C Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Examples.html">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+      <li class="breadcrumb-item active">I²C protocol</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/pydwf_api/DwfDevice.protocol.i2c.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="i2c-protocol">
+<h1>I²C protocol<a class="headerlink" href="#i2c-protocol" title="Link to this heading"></a></h1>
+<p>The I²C protocol support allows a Digilent Waveforms device to be used as a simple <a class="reference external" href="https://en.wikipedia.org/wiki/I%C2%B2C">I²C</a> bus master.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p><strong>This section is currently incomplete.</strong></p>
+<p>It does not properly explain some of the settings that influence the behavior of the I²C functionality, and the difference between the several write/read methods.</p>
+</div>
+<section id="using-the-i2c-protocol-functionality">
+<h2>Using the I²C protocol functionality<a class="headerlink" href="#using-the-i2c-protocol-functionality" title="Link to this heading"></a></h2>
+<p>To use the I²C protocol functionality you first need to initialize a <em>DwfLibrary</em> instance. Next, you open a specific device. The device’s I²C protocol functionality can now be accessed via its <a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.i2c" title="pydwf.core.dwf_device.DwfDevice.protocol.i2c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">protocol.i2c</span></code></a> attribute, which is an instance of the <a class="reference internal" href="#pydwf.core.api.protocol_i2c.ProtocolI2C" title="pydwf.core.api.protocol_i2c.ProtocolI2C"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProtocolI2C</span></code></a> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydwf</span> <span class="kn">import</span> <span class="n">DwfLibrary</span>
+<span class="kn">from</span> <span class="nn">pydwf.utilities</span> <span class="kn">import</span> <span class="n">openDwfDevice</span>
+
+<span class="n">dwf</span> <span class="o">=</span> <span class="n">DwfLibrary</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">openDwfDevice</span><span class="p">(</span><span class="n">dwf</span><span class="p">)</span> <span class="k">as</span> <span class="n">device</span><span class="p">:</span>
+    <span class="n">i2c</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">protocol</span><span class="o">.</span><span class="n">i2c</span>
+    <span class="n">i2c</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="protocoli2c-reference">
+<h2><em>ProtocolI2C</em> reference<a class="headerlink" href="#protocoli2c-reference" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProtocolI2C</span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C" title="Link to this definition"></a></dt>
+<dd><p>The <em>ProtocolI2C</em> class provides access to the I²C protocol functionality of a <a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfDevice</span></code></a>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Users of <em>pydwf</em> should not create instances of this class directly.</p>
+<p>It is instantiated during initialization of a <em>DwfDevice</em> and subsequently accessible via its
+<a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.i2c" title="pydwf.core.dwf_device.DwfDevice.protocol.i2c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">protocol.i2c</span></code></a> attribute.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the I²C protocol instrument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the <em>reset</em> operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.clear" title="Link to this definition"></a></dt>
+<dd><p>Clear the I²C bus.</p>
+<p>Detect and try to solve an I²C bus lockup condition.</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>The precise behavior of this method needs to be understood and documented.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the bus is clear after the operation, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.stretchSet">
+<span class="sig-name descname"><span class="pre">stretchSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stretch_enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.stretchSet" title="Link to this definition"></a></dt>
+<dd><p>Set I²C stretch behavior.</p>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>The precise behavior of this method needs to be understood and documented.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stretch_enable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – True to enable stretch, False to disable.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.rateSet">
+<span class="sig-name descname"><span class="pre">rateSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.rateSet" title="Link to this definition"></a></dt>
+<dd><p>Set the I²C data rate, in Hz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – <p>I²C data rate. Often-encountered rates are 100 kHz and 400 kHz, but many
+modern I²C devices support higher data rates. Check the datasheet of your device.</p>
+<p>The default value is 100 kHz.</p>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.timeoutSet">
+<span class="sig-name descname"><span class="pre">timeoutSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.timeoutSet" title="Link to this definition"></a></dt>
+<dd><p>Set the I²C timeout, in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – I²C timeout. The default value is 1 second.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.readNakSet">
+<span class="sig-name descname"><span class="pre">readNakSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nak_last_read_byte</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.readNakSet" title="Link to this definition"></a></dt>
+<dd><p>Set read NAK state.</p>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>The precise behavior of this method needs to be understood and documented.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nak_last_read_byte</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – (undocumented)</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.sclSet">
+<span class="sig-name descname"><span class="pre">sclSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.sclSet" title="Link to this definition"></a></dt>
+<dd><p>Set the digital channel (pin) where the I²C clock (SCL) signal is transmitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The digital channel (pin) on which to generate the SCL clock.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.sdaSet">
+<span class="sig-name descname"><span class="pre">sdaSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.sdaSet" title="Link to this definition"></a></dt>
+<dd><p>Set the digital channel (pin) where the I²C data (SDA) signal is transmitted/received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The digital channel (pin) on which to send/receive SDA data.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.writeRead">
+<span class="sig-name descname"><span class="pre">writeRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_rx_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.writeRead" title="Link to this definition"></a></dt>
+<dd><p>Perform a combined I²C write/read operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The I²C address of the target device.</p></li>
+<li><p><strong>tx</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>]</em>) – The octets to send.</p></li>
+<li><p><strong>number_of_rx_bytes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of octets to receive.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The first element is the NAK indication; the second element is a list of octet values received.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tuple</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>, <em>List</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.read" title="Link to this definition"></a></dt>
+<dd><p>Perform an I²C read operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The I²C address of the target device.</p></li>
+<li><p><strong>number_of_words</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of octets to receive.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The first element is the NAK indication; the second element is a list of octet values received.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tuple</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>, <em>List</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.write" title="Link to this definition"></a></dt>
+<dd><p>Perform an I²C write operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The I²C address of the target device.</p></li>
+<li><p><strong>tx</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>]</em>) – The octets to send.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The NAK indication.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.writeOne">
+<span class="sig-name descname"><span class="pre">writeOne</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.writeOne" title="Link to this definition"></a></dt>
+<dd><p>Perform an I²C write operation of a single octet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The I²C address of the target device.</p></li>
+<li><p><strong>tx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The single octet to send.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The NAK indication.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.spyStart">
+<span class="sig-name descname"><span class="pre">spyStart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.spyStart" title="Link to this definition"></a></dt>
+<dd><p>Start I²C spy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.spyStatus">
+<span class="sig-name descname"><span class="pre">spyStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_data_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.spyStatus" title="Link to this definition"></a></dt>
+<dd><p>Get I²C spy status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple (start, stop, data-values, nak-indicator).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Tuple</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>, <em>List</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>], <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_i2c.ProtocolI2C.device">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#pydwf.core.api.protocol_i2c.ProtocolI2C.device" title="Link to this definition"></a></dt>
+<dd><p>Return the <em>DwfDevice</em> instance of which we are an attribute.</p>
+<p>This is useful if we have a variable that contains a reference to a <em>DwfDevice</em> attribute,
+but we need the <em>DwfDevice</em> itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <em>DwfDevice</em> instance that this attribute belongs to.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><em>DwfDevice</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DwfDevice.protocol.spi.html" class="btn btn-neutral float-left" title="SPI protocol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DwfDevice.protocol.can.html" class="btn btn-neutral float-right" title="CAN protocol" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analog impedance measurements &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Digital input instrument" href="DwfDevice.digitalIn.html" />
+    <link rel="prev" title="Analog I/O" href="DwfDevice.analogIO.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pydwf
+              <img src="../_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome to <em>pydwf</em> !</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.html">The <em>DwfDevice</em> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogIn.html">Analog input instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogOut.html">Analog output instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogIO.html">Analog I/O</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Analog impedance measurements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-analog-impedance-measurements">Using the analog impedance measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analogimpedance-reference"><em>AnalogImpedance</em> reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pydwf.core.api.analog_impedance.AnalogImpedance"><code class="docutils literal notranslate"><span class="pre">AnalogImpedance</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalIn.html">Digital input instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalOut.html">Digital output instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalIO.html">Digital I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.uart.html">UART protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.spi.html">SPI protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.i2c.html">I²C protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.can.html">CAN protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.swd.html">SWD protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_exceptions.html"><em>pydwf</em> exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DigilentWaveformsDevices.html">Digilent Waveforms devices and their configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/C_Library.html">About the DWF C Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Examples.html">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+      <li class="breadcrumb-item active">Analog impedance measurements</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/pydwf_api/DwfDevice.analogImpedance.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="analog-impedance-measurements">
+<h1>Analog impedance measurements<a class="headerlink" href="#analog-impedance-measurements" title="Link to this heading"></a></h1>
+<p>The <em>AnalogImpedance</em> functionality supports analog measurements of signal propagation properties on devices that support it, such as the Analog Discovery and the Analog Discovery 2.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p><strong>This section is currently incomplete.</strong></p>
+<p>It lacks information on the state machine used in the <em>AnalogImpedance</em> API, what the different settings mean, what the different methods actually do, and how they can be used to perform measurements.</p>
+<p>There are also no <em>AnalogImpedance</em> examples yet.</p>
+</div>
+<section id="using-the-analog-impedance-measurements">
+<h2>Using the analog impedance measurements<a class="headerlink" href="#using-the-analog-impedance-measurements" title="Link to this heading"></a></h2>
+<p>To use the <em>AnalogImpedance</em> functionality you first need to initialize a <em>DwfLibrary</em> instance. Next, you open a specific device. The device’s <em>AnalogImpedance</em> functionality can now be accessed via its <a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice.analogImpedance" title="pydwf.core.dwf_device.DwfDevice.analogImpedance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">analogImpedance</span></code></a> attribute, which is an instance of the <a class="reference internal" href="#pydwf.core.api.analog_impedance.AnalogImpedance" title="pydwf.core.api.analog_impedance.AnalogImpedance"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnalogImpedance</span></code></a> class.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydwf</span> <span class="kn">import</span> <span class="n">DwfLibrary</span>
+<span class="kn">from</span> <span class="nn">pydwf.utilities</span> <span class="kn">import</span> <span class="n">openDwfDevice</span>
+
+<span class="n">dwf</span> <span class="o">=</span> <span class="n">DwfLibrary</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">openDwfDevice</span><span class="p">(</span><span class="n">dwf</span><span class="p">)</span> <span class="k">as</span> <span class="n">device</span><span class="p">:</span>
+
+    <span class="c1"># Get a reference to the device&#39;s AnalogImpedance functionality.</span>
+    <span class="n">analogImpedance</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">analogImpedance</span>
+
+    <span class="c1"># Use the AnalogImpedance functionality.</span>
+    <span class="n">analogImpedance</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="analogimpedance-reference">
+<h2><em>AnalogImpedance</em> reference<a class="headerlink" href="#analogimpedance-reference" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AnalogImpedance</span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance" title="Link to this definition"></a></dt>
+<dd><p>The <em>AnalogImpedance</em> class provides access to the analog impedance measurement functionality of a
+<a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfDevice</span></code></a>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Users of <em>pydwf</em> should not create instances of this class directly.</p>
+<p>It is instantiated during initialization of a <em>DwfDevice</em> and subsequently assigned to its public
+<a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice.analogImpedance" title="pydwf.core.dwf_device.DwfDevice.analogImpedance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">analogImpedance</span></code></a> attribute for access by the user.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the <em>AnalogImpedance</em> functionality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the <em>reset</em> operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.configure">
+<span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.configure" title="Link to this definition"></a></dt>
+<dd><p>Configure the <em>AnalogImpedance</em> functionality, and optionally start a measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether to start the measurement.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the <em>configure</em> operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pydwf_enumeration_types.html#pydwf.core.auxiliary.enum_types.DwfState" title="pydwf.core.auxiliary.enum_types.DwfState"><span class="pre">DwfState</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.status" title="Link to this definition"></a></dt>
+<dd><p>Return the status of the <em>AnalogImpedance</em> functionality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The status of the measurement.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_enumeration_types.html#pydwf.core.auxiliary.enum_types.DwfState" title="pydwf.core.auxiliary.enum_types.DwfState"><em>DwfState</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the <em>status</em> operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.modeSet">
+<span class="sig-name descname"><span class="pre">modeSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.modeSet" title="Link to this definition"></a></dt>
+<dd><p>Set <em>AnalogImpedance</em> measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>The measurement mode.</p>
+<p>The following modes are defined:</p>
+<ul class="simple">
+<li><p>0 — W1-C1-DUT-C2-R-GND</p></li>
+<li><p>1 — W1-C1-R-C2-DUT-GND</p></li>
+<li><p>8 — <a class="reference external" href="https://digilent.com/reference/add-ons/impedance-analyzer/start">Impedance analyzer</a> for the Analog Discovery</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.modeGet">
+<span class="sig-name descname"><span class="pre">modeGet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.modeGet" title="Link to this definition"></a></dt>
+<dd><p>Get <em>AnalogImpedance</em> measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>The measurement mode.</p>
+<p>The following modes are defined:</p>
+<ul class="simple">
+<li><p>0 — W1-C1-DUT-C2-R-GND</p></li>
+<li><p>1 — W1-C1-R-C2-DUT-GND</p></li>
+<li><p>8 — <a class="reference external" href="https://digilent.com/reference/add-ons/impedance-analyzer/start">Impedance analyzer</a> for the Analog Discovery</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.referenceSet">
+<span class="sig-name descname"><span class="pre">referenceSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.referenceSet" title="Link to this definition"></a></dt>
+<dd><p>Set <em>AnalogImpedance</em> reference load value, in Ohms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reference</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The reference load, in Ohms.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.referenceGet">
+<span class="sig-name descname"><span class="pre">referenceGet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.referenceGet" title="Link to this definition"></a></dt>
+<dd><p>Get <em>AnalogImpedance</em> reference load value, in Ohms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reference load, in Ohms.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.frequencySet">
+<span class="sig-name descname"><span class="pre">frequencySet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.frequencySet" title="Link to this definition"></a></dt>
+<dd><p>Set <em>AnalogImpedance</em> source frequency, in Hz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The source frequency, in Hz.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.frequencyGet">
+<span class="sig-name descname"><span class="pre">frequencyGet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.frequencyGet" title="Link to this definition"></a></dt>
+<dd><p>Get <em>AnalogImpedance</em> source frequency, in Hz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The source frequency, in Hz.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.amplitudeSet">
+<span class="sig-name descname"><span class="pre">amplitudeSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.amplitudeSet" title="Link to this definition"></a></dt>
+<dd><p>Set <em>AnalogImpedance</em> source amplitude value, in Volts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>amplitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The source amplitude, in Volts.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.amplitudeGet">
+<span class="sig-name descname"><span class="pre">amplitudeGet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.amplitudeGet" title="Link to this definition"></a></dt>
+<dd><p>Get <em>AnalogImpedance</em> source amplitude, in Volts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The source amplitude, in Volts.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.offsetSet">
+<span class="sig-name descname"><span class="pre">offsetSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.offsetSet" title="Link to this definition"></a></dt>
+<dd><p>Set <em>AnalogImpedance</em> source offset, in Volts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The source offset, in Volts.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.offsetGet">
+<span class="sig-name descname"><span class="pre">offsetGet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.offsetGet" title="Link to this definition"></a></dt>
+<dd><p>Get <em>AnalogImpedance</em> source offset, in Volts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The source offset, in Volts.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.probeSet">
+<span class="sig-name descname"><span class="pre">probeSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resistance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacitance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.probeSet" title="Link to this definition"></a></dt>
+<dd><p>Set <em>AnalogImpedance</em> probe parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resistance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The probe resistance, in Ohms.</p></li>
+<li><p><strong>capacitance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The probe capacitance, in Farads.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.probeGet">
+<span class="sig-name descname"><span class="pre">probeGet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.probeGet" title="Link to this definition"></a></dt>
+<dd><p>Get <em>AnalogImpedance</em> probe parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A two-element tuple: the probe resistance, in Ohms, and the probe capacity, in Farads.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Tuple</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.periodSet">
+<span class="sig-name descname"><span class="pre">periodSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.periodSet" title="Link to this definition"></a></dt>
+<dd><p>Set the <em>AnalogImpedance</em> measurement period.</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Figure out what this setting is for, why it’s an <em>int</em>, and what its physical unit is.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>period</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The measurement period.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.periodGet">
+<span class="sig-name descname"><span class="pre">periodGet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.periodGet" title="Link to this definition"></a></dt>
+<dd><p>Get the <em>AnalogImpedance</em> measurement period.</p>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>Figure out what this setting is for, why it’s an <em>int</em>, and what its physical unit is.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The measurement period.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.compReset">
+<span class="sig-name descname"><span class="pre">compReset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.compReset" title="Link to this definition"></a></dt>
+<dd><p>Reset the <em>AnalogImpedance</em> measurement computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.compSet">
+<span class="sig-name descname"><span class="pre">compSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_resistance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_reactance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_resistance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_reactance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.compSet" title="Link to this definition"></a></dt>
+<dd><p>Set the <em>AnalogImpedance</em> measurement computation parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>open_resistance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The open-circuit resistance, in Ohms.</p></li>
+<li><p><strong>open_reactance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The open-circuit reactance, in Ohms.</p></li>
+<li><p><strong>short_resistance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The short-circuit resistance, in Ohms.</p></li>
+<li><p><strong>short_reactance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The short-circuit reactance, in Ohms.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.compGet">
+<span class="sig-name descname"><span class="pre">compGet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.compGet" title="Link to this definition"></a></dt>
+<dd><p>Get the <em>AnalogImpedance</em> measurement computation parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The open-circuit resistance, open-circuit reactance,
+short-circuit resistance, and short-circuit reactance (all in Ohms).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Tuple</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.statusInput">
+<span class="sig-name descname"><span class="pre">statusInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.statusInput" title="Link to this definition"></a></dt>
+<dd><p>Get the <em>AnalogImpedance</em> input measurement status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The channel for which to get gain and phase information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The gain and phase (in radians) of the current measurement.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tuple</em>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.statusWarning">
+<span class="sig-name descname"><span class="pre">statusWarning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.statusWarning" title="Link to this definition"></a></dt>
+<dd><p>Get warning for scope input range exceeded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The channel for which to get scope input range warning information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The warning, if any. 1 means <em>low</em>, 2 means <em>high</em>, 3 means <em>both</em>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.statusMeasure">
+<span class="sig-name descname"><span class="pre">statusMeasure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pydwf_enumeration_types.html#pydwf.core.auxiliary.enum_types.DwfAnalogImpedance" title="pydwf.core.auxiliary.enum_types.DwfAnalogImpedance"><span class="pre">DwfAnalogImpedance</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.statusMeasure" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the <em>AnalogImpedance</em> measurement status value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>measure</strong> (<a class="reference internal" href="pydwf_enumeration_types.html#pydwf.core.auxiliary.enum_types.DwfAnalogImpedance" title="pydwf.core.auxiliary.enum_types.DwfAnalogImpedance"><em>DwfAnalogImpedance</em></a>) – The quantity to measure.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value measured for the requested quantity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydwf.core.api.analog_impedance.AnalogImpedance.device">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#pydwf.core.api.analog_impedance.AnalogImpedance.device" title="Link to this definition"></a></dt>
+<dd><p>Return the <em>DwfDevice</em> instance of which we are an attribute.</p>
+<p>This is useful if we have a variable that contains a reference to a <em>DwfDevice</em> attribute,
+but we need the <em>DwfDevice</em> itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <em>DwfDevice</em> instance that this attribute belongs to.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><em>DwfDevice</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DwfDevice.analogIO.html" class="btn btn-neutral float-left" title="Analog I/O" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DwfDevice.digitalIn.html" class="btn btn-neutral float-right" title="Digital input instrument" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

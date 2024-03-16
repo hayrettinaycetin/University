@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digilent Waveforms devices and their configurations &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="About the DWF C Library" href="C_Library.html" />
+    <link rel="prev" title="Device parameters" href="DeviceParameters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pydwf
+              <img src="../_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome to <em>pydwf</em> !</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_exceptions.html"><em>pydwf</em> exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Digilent Waveforms devices and their configurations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#about-device-configurations">About device configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#an-overview-of-digilent-waveforms-devices">An overview of Digilent Waveforms devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#electronics-explorer-link-legacy">Electronics Explorer (legacy)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analog-discovery-link-legacy">Analog Discovery (legacy)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analog-discovery-2-link">Analog Discovery 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analog-discovery-3-link">Analog Discovery 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#digital-discovery-link">Digital Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analog-discovery-studio-link">Analog Discovery Studio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dps3340-discovery-link">DPS3340 Discovery USB power supply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analog-discovery-pro-3x50-link">Analog Discovery Pro 3x50</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analog-discovery-pro-5250-link">Analog Discovery Pro 5250</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="C_Library.html">About the DWF C Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Digilent Waveforms devices and their configurations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/background/DigilentWaveformsDevices.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="digilent-waveforms-devices-and-their-configurations">
+<h1>Digilent Waveforms devices and their configurations<a class="headerlink" href="#digilent-waveforms-devices-and-their-configurations" title="Link to this heading"></a></h1>
+<p>This section introduces device configurations and lists all Digilent Waveforms devices (past and present) and the device configurations they support.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p><strong>This section is currently incomplete.</strong></p>
+<p>We need to gather data on more devices.</p>
+</div>
+<section id="about-device-configurations">
+<span id="device-configurations"></span><h2>About device configurations<a class="headerlink" href="#about-device-configurations" title="Link to this heading"></a></h2>
+<p>For some Digilent Waveforms devices, multiple firmware configurations are available that make different tradeoffs for certain hard-coded parameters. For example, one configuration may support a lot of buffering memory for the <em>AnalogIn</em> instrument, while another configuration may support a lot of buffering memory for the <em>DigitalOut</em> instrument. Several examples of different devices and their configurations are shown below.</p>
+<p>Devices have a default configuration that represent a balanced tradeoff in functionality that works well for most applications. However, for some user programs, it may be useful to select a different device configuration, that is better suited to the task at hand. The device enumeration API provides a way to enumerate the relevant properties of all available device configurations. A user application can use this information to select the best device configuration, and activate it while opening the device.</p>
+<p>Handling device enumeration and device configurations involves quite a bit of bookkeeping. For many applications, this complexity can be avoided by using the <a class="reference internal" href="../pydwf_api/pydwf_utilities.html#pydwf.utilities.open_dwf_device.openDwfDevice" title="pydwf.utilities.open_dwf_device.openDwfDevice"><code class="xref py py-func docutils literal notranslate"><span class="pre">pydwf.utilities.openDwfDevice()</span></code></a> convenience function. It provides an easy-to-use alternative to dealing with device enumeration and device configurations directly.</p>
+</section>
+<section id="an-overview-of-digilent-waveforms-devices">
+<h2>An overview of Digilent Waveforms devices<a class="headerlink" href="#an-overview-of-digilent-waveforms-devices" title="Link to this heading"></a></h2>
+<p>We collected the information given below by executing the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m pydwf list -c
+</pre></div>
+</div>
+<section id="electronics-explorer-link-legacy">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/electronics-explorer/start">Electronics Explorer</a> (legacy)<a class="headerlink" href="#electronics-explorer-link-legacy" title="Link to this heading"></a></h3>
+<p>An older device. This is the predecessor of the <a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-studio/start">Analog Discovery Studio</a>.</p>
+<p><em>(no data)</em></p>
+</section>
+<section id="analog-discovery-link-legacy">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery/start">Analog Discovery</a> (legacy)<a class="headerlink" href="#analog-discovery-link-legacy" title="Link to this heading"></a></h3>
+<p>An older device, coming in a black enclosure. This is the predecessor of the <a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-2/start">Analog Discovery 2</a>.</p>
+<p><em>(no data)</em></p>
+</section>
+<section id="analog-discovery-2-link">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-2/start">Analog Discovery 2</a><a class="headerlink" href="#analog-discovery-2-link" title="Link to this heading"></a></h3>
+<p>A low-cost multi-function device; the successor to the original <a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery/start">Analog Discovery</a> and the predecessor of the <a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-3/start">Analog Discovery 3</a>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>device ........... : 3
+version .......... : 3
+user_name ........ : &#39;Discovery2&#39;
+device_name ...... : &#39;Analog Discovery 2&#39;
+
+Configuration:               0       1       2       3       4       5       6       7
+----------------------  ------  ------  ------  ------  ------  ------  ------  ------
+AnalogInChannelCount         2       2       2       2       2       2       2       2
+AnalogOutChannelCount        2       2       2       2       2       4       2       2
+AnalogIOChannelCount         2       2       2       2       2       2       2       2
+DigitalInChannelCount       16      16       0      16      16      16      16      16
+DigitalOutChannelCount      16       0       0      16      16       8      16      16
+DigitalIOChannelCount       16      16      16      16      16      16      16      16
+AnalogInBufferSize        8192   16384    2048     512    8192    8192     512    8192
+AnalogOutBufferSize       4096    1024   16384     256    4096    4096     256    1024
+DigitalInBufferSize       4096    1024       0   16384    4096    2048   16384   16384
+DigitalOutBufferSize      1024       0       0   16384    1024     256   16384     256
+</pre></div>
+</div>
+<p>Note that we only show the parameters with integer values here. This makes it look as if device configurations 0 and 4 are identical, as well as configurations 3 and 6.</p>
+<p>However, if we also consider the <em>OtherInfoText</em> information, we’d see that this is single period (‘.’) character in configurations 0 and 3, and ‘1V8_Digital_Input’ in configurations 4 and 6. So those configurations that look identical are indeed distinct.</p>
+</section>
+<section id="analog-discovery-3-link">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-3/start">Analog Discovery 3</a><a class="headerlink" href="#analog-discovery-3-link" title="Link to this heading"></a></h3>
+<p>A current, low-cost multi-function device; the successor to the <a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-2/start">Analog Discovery 2</a>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>device ........... : 10
+version .......... : 3
+user_name ........ : &#39;Discovery3&#39;
+device_name ...... : &#39;Analog Discovery 3&#39;
+
+Configuration:                 0         1         2         3         4         5
+----------------------  --------  --------  --------  --------  --------  --------
+TooltipText (length)       (413)     (404)     (404)     (412)     (412)     (411)
+OtherInfoText                  _         _         _         _         _         _
+AnalogInChannelCount           2         2         2         2         2         2
+AnalogOutChannelCount          4         4         4         4         4         4
+AnalogIOChannelCount           2         2         2         2         2         2
+DigitalInChannelCount         16        16        16        16        16        16
+DigitalOutChannelCount        16        16        16        16        16        16
+DigitalIOChannelCount         16        16        16        16        16        16
+AnalogInBufferSize         16384     32768      8192     16384      4096      8192
+AnalogOutBufferSize        16384      4096     32768      4096      4096     16384
+DigitalInBufferSize        16384      4096      2048     32768     32768      2048
+DigitalOutBufferSize        2048      2048      2048      2048     32768      2048
+</pre></div>
+</div>
+</section>
+<section id="digital-discovery-link">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/digital-discovery/start">Digital Discovery</a><a class="headerlink" href="#digital-discovery-link" title="Link to this heading"></a></h3>
+<p>A current, low-cost device, similar to the <a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-2/start">Analog Discovery 2</a>, but omitting analog inputs and outputs. On the plus side, it provides high-speed differential digital inputs, and more memory for pattern generation and capture.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>device .......... : 4
+version ......... : 2
+username ........ : &#39;DDiscovery&#39;
+devicename ...... : &#39;Digital Discovery&#39;
+
+Configuration:                 0
+----------------------  --------
+AnalogInChannelCount           0
+AnalogOutChannelCount          0
+AnalogIOChannelCount           1
+DigitalInChannelCount         24
+DigitalOutChannelCount        16
+DigitalIOChannelCount         16
+AnalogInBufferSize             0
+AnalogOutBufferSize            0
+DigitalInBufferSize     67108864
+DigitalOutBufferSize       32768
+</pre></div>
+</div>
+</section>
+<section id="analog-discovery-studio-link">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-studio/start">Analog Discovery Studio</a><a class="headerlink" href="#analog-discovery-studio-link" title="Link to this heading"></a></h3>
+<p>This is the spiritual successor to the earlier <a class="reference external" href="https://digilent.com/reference/test-and-measurement/electronics-explorer/start">Electronics Explorer</a> device.</p>
+<p><em>(no data)</em></p>
+</section>
+<section id="dps3340-discovery-link">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/discovery-power-supply-3340/start">DPS3340 Discovery USB power supply</a><a class="headerlink" href="#dps3340-discovery-link" title="Link to this heading"></a></h3>
+<p><em>(no data)</em></p>
+</section>
+<section id="analog-discovery-pro-3x50-link">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-pro-3x50/start">Analog Discovery Pro 3x50</a><a class="headerlink" href="#analog-discovery-pro-3x50-link" title="Link to this heading"></a></h3>
+<p>This device is feature-wise comparable to the <a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-2/start">Analog Discovery 2</a>, sold since 2020. Hardware-wise, it is more high-end; it provides BNC connectors for its analog inputs and outputs.</p>
+<p>This class of devices includes two models: the Analog Discovery Pro 3250 and the Analog Discovery Pro 3450.</p>
+<p>The data below is for an Analog Discovery Pro 3450:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>device ........... : 6
+version .......... : 4
+username ......... : &#39;ADP3450&#39;
+devicename ....... : &#39;Analog Discovery Pro 3450&#39;
+
+Configuration:                 0         1
+----------------------  --------  --------
+AnalogInChannelCount           4         4
+AnalogOutChannelCount          2         2
+AnalogIOChannelCount           1         1
+DigitalInChannelCount         16        16
+DigitalOutChannelCount        16        16
+DigitalIOChannelCount         16        16
+AnalogInBufferSize         32768     65536
+AnalogOutBufferSize        32768      4096
+DigitalInBufferSize        32768      8192
+DigitalOutBufferSize       16384      1024
+</pre></div>
+</div>
+</section>
+<section id="analog-discovery-pro-5250-link">
+<h3><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-pro-5250/start">Analog Discovery Pro 5250</a><a class="headerlink" href="#analog-discovery-pro-5250-link" title="Link to this heading"></a></h3>
+<p>A clone of the National Instruments VB-8012 device. Works only in Windows.</p>
+<p><em>(no data)</em></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DeviceParameters.html" class="btn btn-neutral float-left" title="Device parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="C_Library.html" class="btn btn-neutral float-right" title="About the DWF C Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

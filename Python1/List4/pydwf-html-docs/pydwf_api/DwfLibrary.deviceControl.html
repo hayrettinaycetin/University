@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Device control functionality &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Signal processing functionality" href="DwfLibrary.spectrum.html" />
+    <link rel="prev" title="Device enumeration functionality" href="DwfLibrary.deviceEnum.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pydwf
+              <img src="../_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome to <em>pydwf</em> !</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DwfLibrary.html">The <em>DwfLibrary</em> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfLibrary.deviceEnum.html">Device enumeration functionality</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Device control functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-device-control-functionality">Using the device control functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alternatives-to-the-device-control-functionality">Alternatives to the device control functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#devicecontrol-reference"><em>DeviceControl</em> reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pydwf.core.api.device_control.DeviceControl"><code class="docutils literal notranslate"><span class="pre">DeviceControl</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DwfLibrary.spectrum.html">Signal processing functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_exceptions.html"><em>pydwf</em> exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DigilentWaveformsDevices.html">Digilent Waveforms devices and their configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/C_Library.html">About the DWF C Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Examples.html">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+      <li class="breadcrumb-item active">Device control functionality</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/pydwf_api/DwfLibrary.deviceControl.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="device-control-functionality">
+<h1>Device control functionality<a class="headerlink" href="#device-control-functionality" title="Link to this heading"></a></h1>
+<p>The device control functionality provides a way to open specific Digilent Waveforms devices, and to close all previously opened devices. It is complemented by the methods provided be the <a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfDevice</span></code></a> class.</p>
+<section id="using-the-device-control-functionality">
+<h2>Using the device control functionality<a class="headerlink" href="#using-the-device-control-functionality" title="Link to this heading"></a></h2>
+<p>To use the device control functionality you first need to initialize a <a class="reference internal" href="DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary" title="pydwf.core.dwf_library.DwfLibrary"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfLibrary</span></code></a> instance. The device control functionality can then be accessed via its <a class="reference internal" href="DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary.deviceControl" title="pydwf.core.dwf_library.DwfLibrary.deviceControl"><code class="xref py py-attr docutils literal notranslate"><span class="pre">deviceControl</span></code></a> attribute, which is an instance of the <a class="reference internal" href="#pydwf.core.api.device_control.DeviceControl" title="pydwf.core.api.device_control.DeviceControl"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceControl</span></code></a> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydwf</span> <span class="kn">import</span> <span class="n">DwfLibrary</span>
+
+<span class="n">dwf</span> <span class="o">=</span> <span class="n">DwfLibrary</span><span class="p">()</span>
+
+<span class="c1"># Open the first available Digilent Waveforms device, and close it immediately.</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">dwf</span><span class="o">.</span><span class="n">deviceControl</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">device</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="alternatives-to-the-device-control-functionality">
+<h2>Alternatives to the device control functionality<a class="headerlink" href="#alternatives-to-the-device-control-functionality" title="Link to this heading"></a></h2>
+<p>For most users, there is little reason to use the device control API directly. Consider the following alternatives:</p>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="#pydwf.core.api.device_control.DeviceControl.open" title="pydwf.core.api.device_control.DeviceControl.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DeviceControl.open()</span></code></a> method is occasionally useful, but the <a class="reference internal" href="pydwf_utilities.html#pydwf.utilities.open_dwf_device.openDwfDevice" title="pydwf.utilities.open_dwf_device.openDwfDevice"><code class="xref py py-func docutils literal notranslate"><span class="pre">pydwf.utilities.openDwfDevice()</span></code></a>
+convenience function provides a more powerful alternative.</p></li>
+<li><p>The <a class="reference internal" href="#pydwf.core.api.device_control.DeviceControl.closeAll" title="pydwf.core.api.device_control.DeviceControl.closeAll"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DeviceControl.closeAll()</span></code></a> method is not recommended for general use. Devices can and should be
+closed individually, either by calling their <a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice.close" title="pydwf.core.dwf_device.DwfDevice.close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DwfDevice.close()</span></code></a> method explicitly, or by using their
+<em>context manager</em> feature.</p></li>
+<li><p>The device control API of the underlying C library supports several more functions that work on a previously
+opened Digilent Waveforms device. In <em>pydwf</em>, these functions are available as methods of the <a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfDevice</span></code></a> class.</p></li>
+</ul>
+</section>
+<section id="devicecontrol-reference">
+<h2><em>DeviceControl</em> reference<a class="headerlink" href="#devicecontrol-reference" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydwf.core.api.device_control.DeviceControl">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DeviceControl</span></span><a class="headerlink" href="#pydwf.core.api.device_control.DeviceControl" title="Link to this definition"></a></dt>
+<dd><p>The <em>DeviceControl</em> class provides access to the device control functionality of a
+<a class="reference internal" href="DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary" title="pydwf.core.dwf_library.DwfLibrary"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfLibrary</span></code></a>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Users of <em>pydwf</em> should not create instances of this class directly.</p>
+<p>It is instantiated during initialization of a <em>DwfLibrary</em> and subsequently assigned to its
+public <a class="reference internal" href="DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary.deviceControl" title="pydwf.core.dwf_library.DwfLibrary.deviceControl"><code class="xref py py-attr docutils literal notranslate"><span class="pre">deviceControl</span></code></a> attribute for access by the user.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.device_control.DeviceControl.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><span class="pre">DwfDevice</span></a></span></span><a class="headerlink" href="#pydwf.core.api.device_control.DeviceControl.open" title="Link to this definition"></a></dt>
+<dd><p>Open a Digilent Waveforms device identified by the device index, using a specific
+device configuration index if specified.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method combines the functionality of the C API functions ‘FDwfDeviceOpen()’ and
+‘FDwfDeviceConfigOpen()’ into a single method.
+The call that is actually made depends on the value of the <em>config_index</em> parameter.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method can take several seconds to complete.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>The zero-based index of the previously enumerated device (see the
+<a class="reference internal" href="DwfLibrary.deviceEnum.html#pydwf.core.api.device_enumeration.DeviceEnumeration.enumerateDevices" title="pydwf.core.api.device_enumeration.DeviceEnumeration.enumerateDevices"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DeviceEnum.enumerateDevices()</span></code></a> method).</p>
+<p>To automatically enumerate all connected devices and open the first discovered device,
+use the value -1 for this parameter.</p>
+</p></li>
+<li><p><strong>config_index</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>]</em>) – The zero-based index of the device configuration to use
+(see the <a class="reference internal" href="DwfLibrary.deviceEnum.html#pydwf.core.api.device_enumeration.DeviceEnumeration.enumerateConfigurations" title="pydwf.core.api.device_enumeration.DeviceEnumeration.enumerateConfigurations"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DeviceEnum.enumerateConfigurations()</span></code></a> method).
+If None, open the default (first) device configuration.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference internal" href="pydwf_utilities.html#pydwf.utilities.open_dwf_device.openDwfDevice" title="pydwf.utilities.open_dwf_device.openDwfDevice"><code class="xref py py-func docutils literal notranslate"><span class="pre">pydwf.utilities.openDwfDevice()</span></code></a> convenience function provides a more powerful way to select
+and open a device and, if desired, specify its device configuration.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <em>DwfDevice</em> instance created as a result of this call.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><em>DwfDevice</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – The specified device or configuration cannot be opened.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.device_control.DeviceControl.openEx">
+<span class="sig-name descname"><span class="pre">openEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">','</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><span class="pre">DwfDevice</span></a></span></span><a class="headerlink" href="#pydwf.core.api.device_control.DeviceControl.openEx" title="Link to this definition"></a></dt>
+<dd><p>Open a device using options given as a string.</p>
+<p>This provides an extended (hence the ‘Ex’ prefix) version of the <cite>:py:meth:open</cite> method.</p>
+<p>The following table lists the options that can be specified in the <em>options</em> string, as listed in the DWF
+documentation. Not all of these have been verified to work.</p>
+<table class="docutils align-center" id="id2">
+<caption><span class="caption-text">Options for the openEx method</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<tbody>
+<tr class="row-odd"><td><p>option</p></td>
+<td><p>description</p></td>
+</tr>
+<tr class="row-even"><td><p>index:#</p></td>
+<td><p>Connect to device by enumeration 0 based index.</p></td>
+</tr>
+<tr class="row-odd"><td><p>sn:##########</p></td>
+<td><p>Open by serial number. (The devices will be enumerated).</p></td>
+</tr>
+<tr class="row-even"><td><p>name:<em>device-name</em></p></td>
+<td><p>Open by device name number. (The devices will be enumerated).</p></td>
+</tr>
+<tr class="row-odd"><td><p>config:#</p></td>
+<td><p>Use configuration (0-based index).</p></td>
+</tr>
+<tr class="row-even"><td><p>ip:#.#.#.#/host</p></td>
+<td><p>Connect to network device identified by IP address or hostname.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ip:<em>user</em>:<em>pass*&#64;#.#.#.#/*host</em></p></td>
+<td><p>Connect to network device (with username and password).</p></td>
+</tr>
+<tr class="row-even"><td><p>user:<em>username</em></p></td>
+<td><p>Provide username.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pass:<em>password</em></p></td>
+<td><p>Provide password.</p></td>
+</tr>
+<tr class="row-even"><td><p>secure:#</p></td>
+<td><p>Enable TLS communication encryption (0/1).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Figure out the precise syntax and semantics of options.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method was added in DWF version 3.17.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A string listing options, separated by a ‘separator’ string (see below).</p></li>
+<li><p><strong>separator</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The separator string that separating options. Default: a single comma (‘,’).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The <em>DwfDevice</em> instance created as a result of this call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><em>DwfDevice</em></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – The operation could not be performed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.device_control.DeviceControl.closeAll">
+<span class="sig-name descname"><span class="pre">closeAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.device_control.DeviceControl.closeAll" title="Link to this definition"></a></dt>
+<dd><p>Close all Digilent Waveforms devices opened by the calling process.</p>
+<p>This method does not close all Digilent Waveforms devices across all processes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – The <em>close all</em> operation failed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydwf.core.api.device_control.DeviceControl.dwf">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dwf</span></span><a class="headerlink" href="#pydwf.core.api.device_control.DeviceControl.dwf" title="Link to this definition"></a></dt>
+<dd><p>Return the <em>DwfLibrary</em> instance of which we are an attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <em>DwfLibrary</em> instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary" title="pydwf.core.dwf_library.DwfLibrary"><em>DwfLibrary</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DwfLibrary.deviceEnum.html" class="btn btn-neutral float-left" title="Device enumeration functionality" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DwfLibrary.spectrum.html" class="btn btn-neutral float-right" title="Signal processing functionality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

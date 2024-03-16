@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UART protocol &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SPI protocol" href="DwfDevice.protocol.spi.html" />
+    <link rel="prev" title="Digital I/O" href="DwfDevice.digitalIO.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pydwf
+              <img src="../_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome to <em>pydwf</em> !</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.html">The <em>DwfDevice</em> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogIn.html">Analog input instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogOut.html">Analog output instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogIO.html">Analog I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.analogImpedance.html">Analog impedance measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalIn.html">Digital input instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalOut.html">Digital output instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.digitalIO.html">Digital I/O</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">UART protocol</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-uart-protocol-functionality">Using the UART protocol functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#protocoluart-reference"><em>ProtocolUART</em> reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pydwf.core.api.protocol_uart.ProtocolUART"><code class="docutils literal notranslate"><span class="pre">ProtocolUART</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.spi.html">SPI protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.i2c.html">I²C protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.can.html">CAN protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DwfDevice.protocol.swd.html">SWD protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_exceptions.html"><em>pydwf</em> exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DigilentWaveformsDevices.html">Digilent Waveforms devices and their configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/C_Library.html">About the DWF C Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Examples.html">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+      <li class="breadcrumb-item active">UART protocol</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/pydwf_api/DwfDevice.protocol.uart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="uart-protocol">
+<h1>UART protocol<a class="headerlink" href="#uart-protocol" title="Link to this heading"></a></h1>
+<p>The UART protocol support allows a Digilent Waveforms device to be used as a simple Universal Asynchronous Receiver/Transmitter (<a class="reference external" href="https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter">UART</a>).</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p><strong>This section is currently incomplete.</strong></p>
+<p>Specifically, the meaning of the parity error indication as returned by the <code class="xref py py-meth docutils literal notranslate"><span class="pre">rx()</span></code> method is unclear.
+It needs to be investigated and documented.</p>
+</div>
+<section id="using-the-uart-protocol-functionality">
+<h2>Using the UART protocol functionality<a class="headerlink" href="#using-the-uart-protocol-functionality" title="Link to this heading"></a></h2>
+<p>To use the UART protocol functionality you first need to initialize a <em>DwfLibrary</em> instance. Next, you open a specific device. The device’s UART protocol functionality can now be accessed via its <a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.uart" title="pydwf.core.dwf_device.DwfDevice.protocol.uart"><code class="xref py py-attr docutils literal notranslate"><span class="pre">protocol.uart</span></code></a> attribute, which is an instance of the <a class="reference internal" href="#pydwf.core.api.protocol_uart.ProtocolUART" title="pydwf.core.api.protocol_uart.ProtocolUART"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProtocolUART</span></code></a> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydwf</span> <span class="kn">import</span> <span class="n">DwfLibrary</span>
+<span class="kn">from</span> <span class="nn">pydwf.utilities</span> <span class="kn">import</span> <span class="n">openDwfDevice</span>
+
+<span class="n">dwf</span> <span class="o">=</span> <span class="n">DwfLibrary</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">openDwfDevice</span><span class="p">(</span><span class="n">dwf</span><span class="p">)</span> <span class="k">as</span> <span class="n">device</span><span class="p">:</span>
+    <span class="n">uart</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">protocol</span><span class="o">.</span><span class="n">uart</span>
+    <span class="n">uart</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The UART protocol as implemented supports a single digital pin to act as a transmitter (TX), and a single digital pin to act as a receiver (RX). Transmission and reception are relative to the viewpoint of the Digilent Waveforms device; so ‘transmission’ means that the Digilent Waveforms device sends outgoing data, and ‘reception’ means that the Digilent Waveforms device receives incoming data.</p>
+<p>The UART protocol only supports the two basic serial TX and RX signals. Other signals commonly encountered on serial ports (e.g., hardware handshaking using RTS/CTS) are not supported.</p>
+<p>Note that while the UART API provides several methods to configure the serial communication (most notably, the baudrate, number of data-bits, parity, and number of stop-bits), there is no way to read back the currently active communication parameter values.</p>
+</section>
+<section id="protocoluart-reference">
+<h2><em>ProtocolUART</em> reference<a class="headerlink" href="#protocoluart-reference" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProtocolUART</span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART" title="Link to this definition"></a></dt>
+<dd><p>The <em>ProtocolUART</em> class provides access to the UART protocol functionality of a <a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfDevice</span></code></a>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Users of <em>pydwf</em> should not create instances of this class directly.</p>
+<p>It is instantiated during initialization of a <em>DwfDevice</em> and subsequently accessible via its
+<a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.uart" title="pydwf.core.dwf_device.DwfDevice.protocol.uart"><code class="xref py py-attr docutils literal notranslate"><span class="pre">protocol.uart</span></code></a> attribute.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the UART protocol functionality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the <em>reset</em> operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.rateSet">
+<span class="sig-name descname"><span class="pre">rateSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baudrate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.rateSet" title="Link to this definition"></a></dt>
+<dd><p>Set the UART baudrate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>baudrate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – <p>The baud-rate used by the receiver and transmitter.</p>
+<p>Commonly encountered values are 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, and 115200,
+but other values are valid as well.</p>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.bitsSet">
+<span class="sig-name descname"><span class="pre">bitsSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">databits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.bitsSet" title="Link to this definition"></a></dt>
+<dd><p>Set the number of UART data bits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>databits</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>The number of data-bits used by the receiver and transmitter.</p>
+<p>The most common choice is 8, but other values are possible.</p>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.paritySet">
+<span class="sig-name descname"><span class="pre">paritySet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.paritySet" title="Link to this definition"></a></dt>
+<dd><p>Set the UART character parity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>The parity used by the receiver and transmitter:</p>
+<ul class="simple">
+<li><p>0 — no parity</p></li>
+<li><p>1 — odd parity</p></li>
+<li><p>2 — even parity</p></li>
+</ul>
+<p>The most common choice is <em>no parity</em> (i.e., 0).</p>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.polaritySet">
+<span class="sig-name descname"><span class="pre">polaritySet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polarity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.polaritySet" title="Link to this definition"></a></dt>
+<dd><p>Set the UART signal polarity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>polarity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>The polarity used by the receiver and transmitter:</p>
+<ul class="simple">
+<li><p>0 — normal</p></li>
+<li><p>1 — inverted</p></li>
+</ul>
+<p>The most common choice and default polarity is <em>normal</em> (i.e., 0).</p>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.stopSet">
+<span class="sig-name descname"><span class="pre">stopSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stopbits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.stopSet" title="Link to this definition"></a></dt>
+<dd><p>Set the number of UART stop bits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stopbits</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – <p>The number of stop-bits used by the receiver and transmitter.</p>
+<p>The most common choice is 1 stop-bit. Other values that are (rarely)
+encountered are 1.5 and 2 stop-bits.</p>
+<p>Note that the actual number of stop-bits is the number specified here,
+rounded up to the next highest integer.</p>
+<p>The parameter is declared as a <em>float</em> in anticipation of future support
+for 1.5 stop-bits.</p>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.txSet">
+<span class="sig-name descname"><span class="pre">txSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.txSet" title="Link to this definition"></a></dt>
+<dd><p>Set the digital channel (pin) where the UART’s outgoing (TX) signal will be transmitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The digital channel (pin) on which to transmit data.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.rxSet">
+<span class="sig-name descname"><span class="pre">rxSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.rxSet" title="Link to this definition"></a></dt>
+<dd><p>Set the digital channel (pin) where the UART’s incoming (RX) signal is received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The digital channel (pin) on which to receive data.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.tx">
+<span class="sig-name descname"><span class="pre">tx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tx_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.12)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.tx" title="Link to this definition"></a></dt>
+<dd><p>Transmit data according to the currently active UART settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tx_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.12)"><em>bytes</em></a>) – The data to be transmitted.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.rx">
+<span class="sig-name descname"><span class="pre">rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rx_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.12)"><span class="pre">bytes</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.rx" title="Link to this definition"></a></dt>
+<dd><p>Receive UART data or prepare for reception.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This method must be called with value 0 prior to receiving data, to initialize the receiver.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rx_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>If 0, initialize the receiver.</p>
+<p>Otherwise, receive the specified number of characters.</p>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Bytes received and parity error indication.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tuple</em>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.12)"><em>bytes</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>]</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>The meaning of the parity error indication is currently unclear.
+This needs to be investigated.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><strong>DwfLibraryError</strong></a> – An error occurred while executing the operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydwf.core.api.protocol_uart.ProtocolUART.device">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#pydwf.core.api.protocol_uart.ProtocolUART.device" title="Link to this definition"></a></dt>
+<dd><p>Return the <em>DwfDevice</em> instance of which we are an attribute.</p>
+<p>This is useful if we have a variable that contains a reference to a <em>DwfDevice</em> attribute,
+but we need the <em>DwfDevice</em> itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <em>DwfDevice</em> instance that this attribute belongs to.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><em>DwfDevice</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DwfDevice.digitalIO.html" class="btn btn-neutral float-left" title="Digital I/O" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DwfDevice.protocol.spi.html" class="btn btn-neutral float-right" title="SPI protocol" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

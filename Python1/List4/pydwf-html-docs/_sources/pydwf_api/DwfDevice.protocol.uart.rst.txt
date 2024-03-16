@@ -1,0 +1,41 @@
+.. include:: /substitutions.rst
+
+UART protocol
+=============
+
+The UART protocol support allows a Digilent Waveforms device to be used as a simple Universal Asynchronous Receiver/Transmitter (`UART <https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter>`_).
+
+.. todo::
+
+    **This section is currently incomplete.**
+
+    Specifically, the meaning of the parity error indication as returned by the :py:meth:`rx() <pydwf.core.api.protocol.uart.rx>` method is unclear.
+    It needs to be investigated and documented.
+
+Using the UART protocol functionality
+-------------------------------------
+
+To use the UART protocol functionality you first need to initialize a |DwfLibrary| instance. Next, you open a specific device. The device's UART protocol functionality can now be accessed via its |protocol.uart:link| attribute, which is an instance of the |ProtocolUART:link| class:
+
+.. code-block:: python
+
+   from pydwf import DwfLibrary
+   from pydwf.utilities import openDwfDevice
+
+   dwf = DwfLibrary()
+
+   with openDwfDevice(dwf) as device:
+       uart = device.protocol.uart
+       uart.reset()
+
+The UART protocol as implemented supports a single digital pin to act as a transmitter (TX), and a single digital pin to act as a receiver (RX). Transmission and reception are relative to the viewpoint of the Digilent Waveforms device; so 'transmission' means that the Digilent Waveforms device sends outgoing data, and 'reception' means that the Digilent Waveforms device receives incoming data.
+
+The UART protocol only supports the two basic serial TX and RX signals. Other signals commonly encountered on serial ports (e.g., hardware handshaking using RTS/CTS) are not supported.
+
+Note that while the UART API provides several methods to configure the serial communication (most notably, the baudrate, number of data-bits, parity, and number of stop-bits), there is no way to read back the currently active communication parameter values.
+
+|ProtocolUART| reference
+------------------------
+
+.. autoclass:: pydwf.core.api.protocol_uart.ProtocolUART()
+   :inherited-members:

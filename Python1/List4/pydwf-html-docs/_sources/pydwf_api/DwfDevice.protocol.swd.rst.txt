@@ -1,0 +1,34 @@
+.. include:: /substitutions.rst
+
+SWD protocol
+============
+
+The SWD protocol support allows a Digilent Waveforms device to be used as a simple SWD (Serial Wire Debug) device.
+
+.. todo::
+
+    **This section is currently incomplete.**
+
+    A bit of background on SWD would be helpful.
+
+Using the SWD protocol functionality
+------------------------------------
+
+To use the SWD protocol functionality you first need to initialize a |DwfLibrary| instance. Next, you open a specific device. The device's SWD protocol functionality can now be accessed via its |protocol.swd:link| attribute, which is an instance of the |ProtocolSWD:link| class:
+
+.. code-block:: python
+
+   from pydwf import DwfLibrary
+   from pydwf.utilities import openDwfDevice
+
+   dwf = DwfLibrary()
+
+   with openDwfDevice(dwf) as device:
+       swd = device.protocol.swd
+       swd.reset()
+
+|ProtocolSWD| reference
+-----------------------
+
+.. autoclass:: pydwf.core.api.protocol_swd.ProtocolSWD()
+   :inherited-members:

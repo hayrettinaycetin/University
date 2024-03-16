@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About the DWF C Library &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example scripts" href="Examples.html" />
+    <link rel="prev" title="Digilent Waveforms devices and their configurations" href="DigilentWaveformsDevices.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pydwf
+              <img src="../_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome to <em>pydwf</em> !</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_exceptions.html"><em>pydwf</em> exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DigilentWaveformsDevices.html">Digilent Waveforms devices and their configurations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">About the DWF C Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-the-dwf-library-from-python">Accessing the DWF library from Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-the-c-api">Overview of the C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handling-in-the-c-api">Error handling in the C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">About the DWF C Library</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/background/C_Library.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="about-the-dwf-c-library">
+<h1>About the DWF C Library<a class="headerlink" href="#about-the-dwf-c-library" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="https://digilent.com/">Digilent</a> provides the Digilent Waveforms library to control their line of line of electronic test and measurement devices. The library is available as a DLL on Microsoft Windows, a shared object (“so”) library on Linux, and a framework on Apple’s macOS. The provided library is accompanied by a C header file; together with the shared library file itself, this allows access to the functionality provided from the C and C++ programming languages.</p>
+<span class="target" id="installing-dwf"></span><section id="accessing-the-dwf-library-from-python">
+<h2>Accessing the DWF library from Python<a class="headerlink" href="#accessing-the-dwf-library-from-python" title="Link to this heading"></a></h2>
+<p>Most popular programming languages provide a mechanism to access functions in shared libraries. In Python, such a mechanism is provided by the <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> module that is part of the standard Python library.</p>
+<p>The <em>pydwf</em> package is a binding to the functionality provided by the DWF library, using the <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> module. It makes all types and functions provided by the DWF library available for use in Python programs, wrapping them in a small set of classes that makes them easy to use.</p>
+</section>
+<section id="overview-of-the-c-api">
+<h2>Overview of the C API<a class="headerlink" href="#overview-of-the-c-api" title="Link to this heading"></a></h2>
+<p>The DWF library comes with a C header file that (for version 3.20.1) defines the 27 enumeration types and 478 function calls that together make up the DWF API. Of the 478 function calls provided, 33 are labeled <em>obsolete</em>. Their functionality is usually superseded by newer, more general functions.</p>
+<p>The API functions are organized in 16 sub-categories, each providing access to a subset of the DWF functionality — for example, a specific type of instrument, or functions to send and receive messages using a certain protocol.</p>
+<p>The function counts for each of the sub-categories of functionality are listed below, to give some idea of the complexity of the different areas of the API.</p>
+<table class="docutils align-center" id="id1">
+<caption><span class="caption-text">DWF C API function counts (by category), version 3.20.1</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<tbody>
+<tr class="row-odd"><td><p><strong>C API category</strong></p></td>
+<td><p><strong>pydwf equivalent</strong></p></td>
+<td><p><strong>active</strong></p></td>
+<td><p><strong>obsolete</strong></p></td>
+<td><p><strong>total</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><em>(miscellaneous)</em></p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary" title="pydwf.core.dwf_library.DwfLibrary"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfLibrary</span></code></a></p></td>
+<td><p>5</p></td>
+<td><p>0</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>FDwfEnum</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary.deviceEnum" title="pydwf.core.dwf_library.DwfLibrary.deviceEnum"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfLibrary.deviceEnum</span></code></a></p></td>
+<td><p>11</p></td>
+<td><p>4</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p>FDwfDevice</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary.deviceControl" title="pydwf.core.dwf_library.DwfLibrary.deviceControl"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfLibrary.deviceControl</span></code></a>, <a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice" title="pydwf.core.dwf_device.DwfDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfDevice</span></code></a></p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>16</p></td>
+</tr>
+<tr class="row-odd"><td><p>FDwfSpectrum</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary.spectrum" title="pydwf.core.dwf_library.DwfLibrary.spectrum"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfLibrary.spectrum</span></code></a></p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>FDwfAnalogIn</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.analogIn" title="pydwf.core.dwf_device.DwfDevice.analogIn"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.analogIn</span></code></a></p></td>
+<td><p>100</p></td>
+<td><p>1</p></td>
+<td><p>101</p></td>
+</tr>
+<tr class="row-odd"><td><p>FDwfAnalogOut</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.analogOut" title="pydwf.core.dwf_device.DwfDevice.analogOut"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.analogOut</span></code></a></p></td>
+<td><p>58</p></td>
+<td><p>25</p></td>
+<td><p>83</p></td>
+</tr>
+<tr class="row-even"><td><p>FDwfAnalogIO</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.analogIO" title="pydwf.core.dwf_device.DwfDevice.analogIO"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.analogIO</span></code></a></p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>17</p></td>
+</tr>
+<tr class="row-odd"><td><p>FDwfAnalogImpedance</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.analogImpedance" title="pydwf.core.dwf_device.DwfDevice.analogImpedance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.analogImpedance</span></code></a></p></td>
+<td><p>23</p></td>
+<td><p>0</p></td>
+<td><p>23</p></td>
+</tr>
+<tr class="row-even"><td><p>FDwfDigitalIn</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.digitalIn" title="pydwf.core.dwf_device.DwfDevice.digitalIn"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.digitalIn</span></code></a></p></td>
+<td><p>60</p></td>
+<td><p>2</p></td>
+<td><p>62</p></td>
+</tr>
+<tr class="row-odd"><td><p>FDwfDigitalOut</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.digitalOut" title="pydwf.core.dwf_device.DwfDevice.digitalOut"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.digitalOut</span></code></a></p></td>
+<td><p>52</p></td>
+<td><p>1</p></td>
+<td><p>53</p></td>
+</tr>
+<tr class="row-even"><td><p>FDwfDigitalIO</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.digitalIO" title="pydwf.core.dwf_device.DwfDevice.digitalIO"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.digitalIO</span></code></a></p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-odd"><td><p>FDwfDigitalUart</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.uart" title="pydwf.core.dwf_device.DwfDevice.protocol.uart"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.protocol.uart</span></code></a></p></td>
+<td><p>10</p></td>
+<td><p>0</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>FDwfDigitalSpi</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.spi" title="pydwf.core.dwf_device.DwfDevice.protocol.spi"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.protocol.spi</span></code></a></p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>32</p></td>
+</tr>
+<tr class="row-odd"><td><p>FDwfDigitalI2c</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.i2c" title="pydwf.core.dwf_device.DwfDevice.protocol.i2c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.protocol.i2c</span></code></a></p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-even"><td><p>FDwfDigitalCan</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.can" title="pydwf.core.dwf_device.DwfDevice.protocol.can"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.protocol.can</span></code></a></p></td>
+<td><p>7</p></td>
+<td><p>0</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-odd"><td><p>FDwfDigitalSwd</p></td>
+<td><p><a class="reference internal" href="../pydwf_api/DwfDevice.html#pydwf.core.dwf_device.DwfDevice.protocol.swd" title="pydwf.core.dwf_device.DwfDevice.protocol.swd"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DwfDevice.protocol.swd</span></code></a></p></td>
+<td><p>12</p></td>
+<td><p>0</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p><strong>TOTAL</strong></p></td>
+<td><p>445</p></td>
+<td><p>33</p></td>
+<td><p>478</p></td>
+</tr>
+</tbody>
+</table>
+<p>From this table, it is clear that the most complex parts of the API are the AnalogIn (“oscilloscope”) and AnalogOut (“waveform generator”) instruments, followed by the DigitalIn (“logic analyzer”) and DigitalOut (“pattern generator”) instruments. About 60% of all the functions provided by the DWF library are directly related to control of these four powerful instruments.</p>
+</section>
+<section id="error-handling-in-the-c-api">
+<h2>Error handling in the C API<a class="headerlink" href="#error-handling-in-the-c-api" title="Link to this heading"></a></h2>
+<p>Each function in the C API returns an integer, indicating its success or error status. A value of 0 indicates an error, while a value of 1 indicates success.</p>
+<dl>
+<dt>Note:</dt><dd><p>This is different from the convention used in most C libraries, where a 0 return value indicates success.</p>
+<p>In earlier versions of <em>libdwf</em> the return value of operations was specified to be of type <em>bool</em>, with <em>true</em> (1) indicating success and <em>false</em> (0) indicating failure. The return type was changed to <em>int</em> at some point, but the values for success and failure remained the same for reasons of backward compatibility.</p>
+</dd>
+</dl>
+<p>In case a function returns 0, indicating some kind of failure, the C API provides two functions to inquire the reason of the failure. The <em>FDwfGetLastError</em> function returns a value of C enumeration type DWFERC (represented in Python by the enumeration type <a class="reference internal" href="../pydwf_api/pydwf_enumeration_types.html#pydwf.core.auxiliary.enum_types.DwfErrorCode" title="pydwf.core.auxiliary.enum_types.DwfErrorCode"><code class="xref py py-class docutils literal notranslate"><span class="pre">DwfErrorCode</span></code></a>), indicating the cause of the last error, while function <em>FDwfGetLastErrorMsg</em> returns a string describing the error.</p>
+<p>In <em>pydwf</em>, the low-level error reporting provided by the C API is handled by checking the return value of any C API call, and raising a <a class="reference internal" href="../pydwf_api/pydwf_exceptions.html#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DwfLibraryError</span></code></a> whenever a failure is detected.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DigilentWaveformsDevices.html" class="btn btn-neutral float-left" title="Digilent Waveforms devices and their configurations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Examples.html" class="btn btn-neutral float-right" title="Example scripts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pydwf exceptions &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pydwf enumeration types" href="pydwf_enumeration_types.html" />
+    <link rel="prev" title="SWD protocol" href="DwfDevice.protocol.swd.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pydwf
+              <img src="../_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome to <em>pydwf</em> !</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><em>pydwf</em> exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-pydwf-exceptions">Using the <em>pydwf</em> exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handling-in-the-pydwf-package">Error handling in the <em>pydwf</em> package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions-raised-by-the-pydwf-package">Exceptions raised by the <em>pydwf</em> package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pydwf-exceptions-reference"><em>pydwf</em> exceptions reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pydwf.core.auxiliary.exceptions.PyDwfError"><code class="docutils literal notranslate"><span class="pre">PyDwfError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pydwf.core.auxiliary.exceptions.DwfLibraryError"><code class="docutils literal notranslate"><span class="pre">DwfLibraryError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pydwf.core.auxiliary.exceptions.DwfLibraryError.code"><code class="docutils literal notranslate"><span class="pre">DwfLibraryError.code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pydwf.core.auxiliary.exceptions.DwfLibraryError.msg"><code class="docutils literal notranslate"><span class="pre">DwfLibraryError.msg</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/DigilentWaveformsDevices.html">Digilent Waveforms devices and their configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/C_Library.html">About the DWF C Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/Examples.html">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><em>pydwf</em> exceptions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/pydwf_api/pydwf_exceptions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pydwf-exceptions">
+<h1><em>pydwf</em> exceptions<a class="headerlink" href="#pydwf-exceptions" title="Link to this heading"></a></h1>
+<p>The <em>PyDwfError</em> and <em>DwfLibraryError</em> exceptions are used to report errors from <em>pydwf</em> to user programs.</p>
+<section id="using-the-pydwf-exceptions">
+<h2>Using the <em>pydwf</em> exceptions<a class="headerlink" href="#using-the-pydwf-exceptions" title="Link to this heading"></a></h2>
+<p>The <em>PyDwfError</em> and <em>DwfLibraryError</em> exceptions are defined in the <em>pydwf.core.auxiliary.exceptions</em> module. The top-level <em>pydwf</em> package imports both of them from that module to make them available to user scripts. To use either of them, they should be imported from the top-level <em>pydwf</em> package:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydwf</span> <span class="kn">import</span> <span class="n">DwfLibrary</span><span class="p">,</span> <span class="n">PyDwfError</span><span class="p">,</span> <span class="n">DwfLibraryError</span>
+
+<span class="n">dwf</span> <span class="o">=</span> <span class="n">DwfLibrary</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">use_pydwf</span><span class="p">(</span><span class="n">dwf</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">DwfLibraryError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An error occurred at the C library level:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">PyDwfError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An error occurred at the Python module level:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="error-handling-in-the-pydwf-package">
+<h2>Error handling in the <em>pydwf</em> package<a class="headerlink" href="#error-handling-in-the-pydwf-package" title="Link to this heading"></a></h2>
+<p>Python provides exceptions to handle errors, which is quite different from the lower level return-value based mechanism used in the C API. Fortunately, it is possible to turn the low-level errors reported by the C API functions into Python exceptions.</p>
+<p>To do this, the <em>pydwf</em> package inspects the return value of each call to the C API, and, in case of an error (i.e., a return value unequal to 1), it raises a <a class="reference internal" href="#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="pydwf.core.auxiliary.exceptions.DwfLibraryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DwfLibraryError</span></code></a> exception that contains both the DWERC error code of the last function called and its corresponding textual description, as obtained by calling the <em>FDwfGetLastError</em> and <em>FDwfGetLastErrorMsg</em> functions in the shared library.</p>
+</section>
+<section id="exceptions-raised-by-the-pydwf-package">
+<h2>Exceptions raised by the <em>pydwf</em> package<a class="headerlink" href="#exceptions-raised-by-the-pydwf-package" title="Link to this heading"></a></h2>
+<p>Almost all exceptions raised by <em>pydwf</em> are a result of a failure reported by the underlying C library. However, there are a few circumstances where <em>pydwf</em> detects an error condition before or after such a call was made. Such errors are handled by raising a <a class="reference internal" href="#pydwf.core.auxiliary.exceptions.PyDwfError" title="pydwf.core.auxiliary.exceptions.PyDwfError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">PyDwfError</span></code></a> exception, which derives from Python’s standard <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.12)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Exception</span></code></a> class.</p>
+<figure class="align-center" id="id1">
+<div class="graphviz"><img src="../_images/graphviz-efa2895024e85ab0bf6cba9b29c47f83a35d709b.png" alt="digraph {
+
+   rankdir=BT;
+
+   // nodes
+   node          [shape=&quot;rectangle&quot;];
+
+   exception_err [label=&quot;Exception&quot;];
+   pydwf_err     [label=&quot;PyDwfError&quot;];
+   dwflib_err    [label=&quot;DwfLibraryError&quot;];
+
+   // edges
+   edge         [arrowhead=&quot;onormal&quot;];
+
+   dwflib_err -&gt; pydwf_err;
+   pydwf_err  -&gt; exception_err;
+}" class="graphviz" /></div>
+<figcaption>
+<p><span class="caption-text">Inheritance diagram of <em>pydwf</em> exceptions</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>As the inheritance diagram shows, the <em>DwfLibraryError</em> exception type derives from <em>PyDwfError</em>. This makes it easy to catch any <em>pydwf</em> error in code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydwf</span> <span class="kn">import</span> <span class="n">DwfLibrary</span><span class="p">,</span> <span class="n">PyDwfError</span>
+
+<span class="n">dwf</span> <span class="o">=</span> <span class="n">DwfLibrary</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">use_pydwf</span><span class="p">(</span><span class="n">dwf</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">PyDwfError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An error occurred at the C library -or- Python module level:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pydwf-exceptions-reference">
+<h2><em>pydwf</em> exceptions reference<a class="headerlink" href="#pydwf-exceptions-reference" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydwf.core.auxiliary.exceptions.PyDwfError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PyDwfError</span></span><a class="headerlink" href="#pydwf.core.auxiliary.exceptions.PyDwfError" title="Link to this definition"></a></dt>
+<dd><p>A <em>PyDwfError</em> exception represents any error in <em>pydwf</em> (caused by the underlying C API or otherwise).</p>
+<p>It is a trivial (empty) specialization of the built-in <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.12)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Exception</span></code></a> class.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pydwf.core.auxiliary.exceptions.DwfLibraryError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DwfLibraryError</span></span><a class="headerlink" href="#pydwf.core.auxiliary.exceptions.DwfLibraryError" title="Link to this definition"></a></dt>
+<dd><p>A <em>DwfLibraryError</em> exception represents an error reported by one of the DWF C library functions.</p>
+<p>This class derives from <em>PyDwfError</em>, making it easier for scripts to catch any exception originating in <em>pydwf</em>.</p>
+<p>The following attributes are provided:</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pydwf.core.auxiliary.exceptions.DwfLibraryError.code">
+<span class="sig-name descname"><span class="pre">code</span></span><a class="headerlink" href="#pydwf.core.auxiliary.exceptions.DwfLibraryError.code" title="Link to this definition"></a></dt>
+<dd><p>DWF error code as reported by the C library, if available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Optional</em>[<a class="reference internal" href="pydwf_enumeration_types.html#pydwf.core.auxiliary.enum_types.DwfErrorCode" title="pydwf.core.auxiliary.enum_types.DwfErrorCode"><em>DwfErrorCode</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pydwf.core.auxiliary.exceptions.DwfLibraryError.msg">
+<span class="sig-name descname"><span class="pre">msg</span></span><a class="headerlink" href="#pydwf.core.auxiliary.exceptions.DwfLibraryError.msg" title="Link to this definition"></a></dt>
+<dd><p>DWF error message as reported by the C library, if available.
+It may contain multiple single-line messages, separated by a newline character.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Optional</em>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DwfDevice.protocol.swd.html" class="btn btn-neutral float-left" title="SWD protocol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pydwf_enumeration_types.html" class="btn btn-neutral float-right" title="pydwf enumeration types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

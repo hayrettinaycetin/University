@@ -1,0 +1,34 @@
+.. include:: /substitutions.rst
+
+I²C protocol
+============
+
+The I²C protocol support allows a Digilent Waveforms device to be used as a simple `I²C <https://en.wikipedia.org/wiki/I%C2%B2C>`_ bus master.
+
+.. todo::
+
+    **This section is currently incomplete.**
+
+    It does not properly explain some of the settings that influence the behavior of the I²C functionality, and the difference between the several write/read methods.
+
+Using the I²C protocol functionality
+------------------------------------
+
+To use the I²C protocol functionality you first need to initialize a |DwfLibrary| instance. Next, you open a specific device. The device's I²C protocol functionality can now be accessed via its |protocol.i2c:link| attribute, which is an instance of the |ProtocolI2C:link| class:
+
+.. code-block:: python
+
+   from pydwf import DwfLibrary
+   from pydwf.utilities import openDwfDevice
+
+   dwf = DwfLibrary()
+
+   with openDwfDevice(dwf) as device:
+       i2c = device.protocol.i2c
+       i2c.reset()
+
+|ProtocolI2C| reference
+-----------------------
+
+.. autoclass:: pydwf.core.api.protocol_i2c.ProtocolI2C()
+   :inherited-members:

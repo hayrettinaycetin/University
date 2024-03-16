@@ -1,0 +1,322 @@
+.. include:: /substitutions.rst
+
+Digital input instrument
+========================
+
+The |DigitalIn| instrument provides multiple channels of digital input on devices that support it, such as the Analog Discovery, Analog Discovery 2, and Digital Discovery. It provides the functionality normally associated with a stand-alone logic analyzer.
+
+.. todo::
+
+    **This section is missing some important information:**
+
+    - A discussion about the different acquisition modes;
+    - A description of how the status variables behave in the different acquisition modes;
+    - A discussion of the precise meaning of all settings.
+
+Using the digital input instrument
+----------------------------------
+
+To use the |DigitalIn| instrument you first need to initialize a |DwfLibrary| instance. Next, you open a specific device. The device's |DigitalIn| instrument can now be accessed via its |digitalIn:link| attribute, which is an instance of the |DigitalIn:link| class.
+
+For example:
+
+.. code-block:: python
+
+   from pydwf import DwfLibrary
+   from pydwf.utilities import openDwfDevice
+
+   dwf = DwfLibrary()
+
+   with openDwfDevice(dwf) as device:
+
+       # Get a reference to the device's DigitalIn instrument.
+       digitalIn = device.digitalIn
+
+       # Use the DigitalOut instrument.
+       digitalIn.reset()
+
+The |DigitalIn| instrument state machine
+----------------------------------------
+
+The |DigitalIn| instrument is controlled by a state machine. As a measurement is prepared and executed, the instrument goes through its various states.
+
+The current state of the instrument is returned by the :py:meth:`digitalIn.status() <pydwf.core.api.digital_in.DigitalIn.status>` method, and is of type |DwfState:link|.
+
+The figure below shows the states used by the |DigitalIn| instrument and the transitions between them:
+
+.. graphviz::
+   :caption: States of the |DigitalIn| instrument
+   :align: center
+
+   digraph {
+
+      rankdir=LR;
+
+      // nodes
+      node         [color="#243f60"; fillcolor="#4581bd"; style="filled"];
+
+      st_ready     [label="Ready"];
+      st_configure [label="Configure"];
+      st_prefill   [label="Prefill"];
+      st_armed     [label="Armed"];
+      st_running   [label="Running"];
+      st_done      [label="Done"];
+
+      // edges
+      edge         [color="#4579b8"];
+
+      st_ready -> st_configure [label="Reconfigure?", style="dashed"];
+      st_configure -> st_ready [style="dashed"];
+      st_ready -> st_prefill [label="Start?"];
+      st_configure -> st_prefill[label="Start?", style="dashed"];
+      st_prefill -> st_armed;
+      st_armed -> st_running[label="Trigger?"];
+      st_running -> st_done;
+   }
+
+The |DigitalIn| states are used as follows:
+
+1. |Ready:link|
+
+   In this preparatory state, instrument settings can be changed that specify the behavior of the instrument in the coming measurement. If the auto-configure setting of the device is enabled (the default), setting changes will automatically be transferred to the device. If not, an explicit call to the :py:meth:`digitalIn.configure() <pydwf.core.api.digital_in.DigitalIn.configure>` method with the *reconfigure* parameter set to True is needed to transfer updated settings to the device.
+
+   Once the instrument is properly configured, an acquisition can be started by calling the :py:meth:`digitalIn.configure() <pydwf.core.api.digital_in.DigitalIn.configure>` with the *start* parameter set to True. This will start the first stage of the acquisition by entering the |Prefill:link| state.
+
+2. |Config:link|
+
+   This state is entered momentarily when a setting is being pushed to the device, either by changing the setting while auto-configure is enabled, or by an explicit call to :py:meth:`digitalIn.configure() <pydwf.core.api.digital_in.DigitalIn.configure>` with the *reconfigure* parameter set to True. The settings inside the device will be updated, and the device will immediately thereafter go back to the |Ready:link| state, unless the *start* parameter to :py:meth:`digitalIn.configure() <pydwf.core.api.digital_in.DigitalIn.configure>` was set to True.
+
+3. |Prefill:link|
+
+   This state marks the beginning of an acquisition sequence. During the |Prefill:link| state, input samples will be acquired until enough samples are buffered for the instrument to be ready to react to a trigger.
+
+   This state is only relevant if the trigger position has been configured in such a way that the measurement must also yield sample values prior to the moment of triggering.
+
+   Once enough samples are received for the instrument to be able to react to a trigger, it proceeds to the |Armed:link| state.
+
+4. |Armed:link|
+
+   In this state the instrument continuously captures samples and monitors the configured trigger input. As soon as a trigger event is detected, the instrument proceeds to the |Running:link| state.
+
+5. |Running:link|
+
+   In this state the instrument continues capturing samples until the acquisition is complete. Completion is reached when the acquisition buffer has filled up in :py:attr:`Single <pydwf.core.auxiliary.enum_types.DwfAcquisitionMode.Single>` mode, or when the recording length has been reached in :py:attr:`Record <pydwf.core.auxiliary.enum_types.DwfAcquisitionMode.Record>` mode. When completion is reached, the instrument proceeds to the |Done:link| state.
+
+6. |Done:link|
+
+   This state indicates that a measurement has finished.
+
+   From this state, it is possible to go back to the |Ready:link| state by performing any kind of configuration, or to start a new acquisition with the same settings..
+
+|DigitalIn| instrument API overview
+-----------------------------------
+
+The |DigitalIn| instrument is quite complicated; 62 methods are provided to control its behavior. Below, we categorize all methods and shortly introduce them. Detailed information on all methods can be found in the |DigitalIn:link| class reference that follows.
+
+.. instrument control                      3
+   status variables                        7
+   status data retrieval                   5
+   acquisition timing settings             7
+   acquisition settings                   17
+   trigger configuration                  11
+   trigger detector configuration          7
+   counter functionality                   4
+   miscellaneous methods ("mixed")         1 +
+   -------------------------------------------
+   total number of methods                62
+
+Instrument control
+^^^^^^^^^^^^^^^^^^
+
+Like all instruments supported by the Digilent Waveforms library, the |DigitalIn| instrument provides :py:meth:`reset() <pydwf.core.api.digital_in.DigitalIn.reset>`, :py:meth:`configure() <pydwf.core.api.digital_in.DigitalIn.configure>`, and :py:meth:`status() <pydwf.core.api.digital_in.DigitalIn.status>` methods.
+
+The :py:meth:`reset() <pydwf.core.api.digital_in.DigitalIn.reset>` method resets the instrument.
+
+The :py:meth:`configure() <pydwf.core.api.digital_in.DigitalIn.configure>` method is used to explicitly transfer settings to the instrument, and/or to start a configured operation.
+
+The :py:meth:`status() <pydwf.core.api.digital_in.DigitalIn.status>` method retrieves status information from the instrument. Optionally, it can also retrieve bulk data, i.e. digital input samples. The method returns the current |DwfState:link| of the |DigitalIn| instrument; to obtain more elaborate status information, one of the methods in the next two sections must be used.
+
+.. table:: Instrument control (3 methods)
+
+   +----------------------------+-----------------+------------------------------------------------------------------------+
+   | **control operation**      | **type/unit**   |**methods**                                                             |
+   +----------------------------+-----------------+------------------------------------------------------------------------+
+   | reset instrument           | *n/a*           | :py:meth:`reset()     <pydwf.core.api.digital_in.DigitalIn.reset>`     |
+   +----------------------------+-----------------+------------------------------------------------------------------------+
+   | configure instrument       | *n/a*           | :py:meth:`configure() <pydwf.core.api.digital_in.DigitalIn.configure>` |
+   +----------------------------+-----------------+------------------------------------------------------------------------+
+   | request instrument status  | |DwfState:link| | :py:meth:`status()    <pydwf.core.api.digital_in.DigitalIn.status>`    |
+   +----------------------------+-----------------+------------------------------------------------------------------------+
+
+Status variables
+^^^^^^^^^^^^^^^^
+
+When executing the :py:meth:`status() <pydwf.core.api.digital_in.DigitalIn.status>` method, status information is transferred from the |DigitalIn| instrument to the PC. Several status variables can then be retrieved by using the methods listed below.
+
+.. table:: Status variables (7 methods)
+
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+   | **status value**            | **type/unit**   | **method**                                                                                 |
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+   | timestamp                   | tuple [s]       | :py:meth:`statusTime()          <pydwf.core.api.digital_in.DigitalIn.statusTime>`          |
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+   | auto-triggered flag         | bool            | :py:meth:`statusAutoTriggered() <pydwf.core.api.digital_in.DigitalIn.statusAutoTriggered>` |
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+   | samples left in acquisition | int [samples]   | :py:meth:`statusSamplesLeft()   <pydwf.core.api.digital_in.DigitalIn.statusSamplesLeft>`   |
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+   | samples valid count         | int [samples]   | :py:meth:`statusSamplesValid()  <pydwf.core.api.digital_in.DigitalIn.statusSamplesValid>`  |
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+   | buffer write index          | int [samples]   | :py:meth:`statusIndexWrite()    <pydwf.core.api.digital_in.DigitalIn.statusIndexWrite>`    |
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+   | recording status            | tuple [samples] | :py:meth:`statusRecord()        <pydwf.core.api.digital_in.DigitalIn.statusRecord>`        |
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+   | compressed status           | tuple [samples] | :py:meth:`statusCompress()      <pydwf.core.api.digital_in.DigitalIn.statusCompress>`      |
+   +-----------------------------+-----------------+--------------------------------------------------------------------------------------------+
+
+Status data retrieval
+^^^^^^^^^^^^^^^^^^^^^
+
+Executing the :py:meth:`status() <pydwf.core.api.digital_in.DigitalIn.status>` method with the *read_data* parameter set to True transfers captured samples from the instrument to the PC. The samples can then be retrieved using the methods listed here.
+
+.. table:: Bulk status data retrieval (5 methods)
+
+   +----------------------------------------------------+---------------+------------------------------------------------------------------------------------+
+   | **status data**                                    | **type/unit** | **methods**                                                                        |
+   +----------------------------------------------------+---------------+------------------------------------------------------------------------------------+
+   | get sample data (without buffer offset)            | [bytes]       | :py:meth:`statusData()         <pydwf.core.api.digital_in.DigitalIn.statusData>`   |
+   +----------------------------------------------------+---------------+------------------------------------------------------------------------------------+
+   | get sample data (with buffer offset)               | [bytes]       | :py:meth:`statusData2()        <pydwf.core.api.digital_in.DigitalIn.statusData2>`  |
+   +----------------------------------------------------+---------------+------------------------------------------------------------------------------------+
+   | get compressed sample data (without buffer offset) | [bytes]       | :py:meth:`statusCompressed()   <pydwf.core.api.digital_in.DigitalIn.statusData>`   |
+   +----------------------------------------------------+---------------+------------------------------------------------------------------------------------+
+   | get compressed sample data (with buffer offset)    | [bytes]       | :py:meth:`statusCompressed2()  <pydwf.core.api.digital_in.DigitalIn.statusData2>`  |
+   +----------------------------------------------------+---------------+------------------------------------------------------------------------------------+
+   | get sample noise (with offset)                     | [bytes]       | :py:meth:`statusNoise2()       <pydwf.core.api.digital_in.DigitalIn.statusNoise2>` |
+   +----------------------------------------------------+---------------+------------------------------------------------------------------------------------+
+
+Acquisition timing settings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The acquisition settings control the timing of the digital data acquisition process.
+
+.. table:: Acquisition timing settings (7 methods)
+
+   +----------------+--------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | **setting**    | **type/unit**                  | **methods**                                                                                                                                                                                                                                  |
+   +----------------+--------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | internal clock | float [Hz]                     | :py:meth:`internalClockInfo() <pydwf.core.api.digital_in.DigitalIn.internalClockInfo>`                                                                                                                                                       |
+   +----------------+--------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | clock source   | |DwfDigitalInClockSource:link| | :py:meth:`clockSourceInfo()   <pydwf.core.api.digital_in.DigitalIn.clockSourceInfo>`   , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.clockSourceSet>` , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.clockSourceGet>`     |
+   +----------------+--------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | divider        | int [-]                        | :py:meth:`dividerInfo()       <pydwf.core.api.digital_in.DigitalIn.dividerInfo>`       , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.dividerSet>`     , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.dividerGet>`         |
+   +----------------+--------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Acquisition settings
+^^^^^^^^^^^^^^^^^^^^
+
+The acquisition settings control various aspects of the digital data acquisition process.
+
+.. table:: Acquisition settings (17 methods)
+
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | **setting**      | **type/unit**                 | **methods**                                                                                                                                                                                                                                          |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | acquisition mode | |DwfAcquisitionMode:link|     | :py:meth:`acquisitionModeInfo() <pydwf.core.api.digital_in.DigitalIn.acquisitionModeInfo>` , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.acquisitionModeSet>` , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.acquisitionModeGet>` |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | bits             | int [-]                       | :py:meth:`bitsInfo()            <pydwf.core.api.digital_in.DigitalIn.bitsInfo>`                                                                                                                                                                      |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | sample format    | int [bits]                    | :py:meth:`sampleFormatSet()     <pydwf.core.api.digital_in.DigitalIn.sampleFormatSet>`     , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.sampleFormatGet>`                                                                                 |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | input order      | bool                          | :py:meth:`inputOrderSet()       <pydwf.core.api.digital_in.DigitalIn.inputOrderSet>`                                                                                                                                                                 |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | buffer size      | int [samples]                 | :py:meth:`bufferSizeInfo()      <pydwf.core.api.digital_in.DigitalIn.bufferSizeInfo>`      , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.bufferSizeSet>`      , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.bufferSizeGet>`      |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | sample mode      | |DwfDigitalInSampleMode:link| | :py:meth:`sampleModeInfo()      <pydwf.core.api.digital_in.DigitalIn.sampleModeInfo>`      , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.sampleModeSet>`      , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.sampleModeGet>`      |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | sample sensible  | int                           | :py:meth:`sampleSensibleSet()   <pydwf.core.api.digital_in.DigitalIn.sampleSensibleSet>`   , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.sampleSensibleGet>`                                                                               |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger prefill  | int [samples]                 | :py:meth:`triggerPrefillSet()   <pydwf.core.api.digital_in.DigitalIn.triggerPrefillSet>`   , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.triggerPrefillGet>`                                                                               |
+   +------------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Instrument trigger configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following methods are used to configure the trigger of the |DigitalIn| instrument. The trigger source is fully configurable; the |DigitalIn| instrument can use its own trigger detector for triggering, but it is also possible to use a different trigger source. For that reason, we distinguish between the methods that configure the instrument trigger in this section, and the methods that configure the |DigitalIn| trigger detector that are discussed below.
+
+.. table:: Instrument trigger configuration (11 methods)
+
+   +----------------------+-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | **setting**          | **type/unit**           | **methods**                                                                                                                                                                                                                                                      |
+   +----------------------+-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger source       | |DwfTriggerSource:link| | :py:meth:`triggerSourceInfo()      <pydwf.core.api.digital_in.DigitalIn.triggerSourceInfo>`      , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.triggerSourceSet>`      , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.triggerSourceGet>`      |
+   +----------------------+-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger slope        | |DwfTriggerSlope:link|  | :py:meth:`triggerSlopeSet()   <pydwf.core.api.digital_in.DigitalIn.triggerSlopeSet>`             , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.triggerSlopeGet>`                                                                                       |
+   +----------------------+-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger position     | float [s]               | :py:meth:`triggerPositionInfo()    <pydwf.core.api.digital_in.DigitalIn.triggerPositionInfo>`    , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.triggerPositionSet>`    , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.triggerPositionGet>`    |
+   +----------------------+-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger auto-timeout | float [s]               | :py:meth:`triggerAutoTimeoutInfo() <pydwf.core.api.digital_in.DigitalIn.triggerAutoTimeoutInfo>` , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.triggerAutoTimeoutSet>` , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.triggerAutoTimeoutGet>` |
+   +----------------------+-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+.. note::
+
+   The :py:meth:`triggerSourceInfo() <pydwf.core.api.digital_in.DigitalIn.triggerSourceInfo>` method is obsolete. Use the generic |DwfDevice.triggerInfo:link| method instead.
+
+Trigger detector configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The |DigitalIn| trigger detector is highly configurable. Unfortunately, its documentation is sparse, so some experimentation is needed to figure out how it works.
+
+.. todo::
+
+   Figure out and explain how the |DigitalIn| trigger detector works.
+
+.. table:: Trigger detector configuration (7 methods)
+
+   +----------------+--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | **setting**    | **type/unit**      | **methods**                                                                                                                                                                                                                     |
+   +----------------+--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger        | bit masks          | :py:meth:`triggerInfo()       <pydwf.core.api.digital_in.DigitalIn.triggerInfo>`      , :py:meth:`–Set() <pydwf.core.api.digital_in.DigitalIn.triggerSet>` , :py:meth:`–Get() <pydwf.core.api.digital_in.DigitalIn.triggerGet>` |
+   +----------------+--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger reset  | *to be documented* | :py:meth:`triggerResetSet()   <pydwf.core.api.digital_in.DigitalIn.triggerResetSet>`                                                                                                                                            |
+   +----------------+--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger count  | *to be documented* | :py:meth:`triggerCountSet()   <pydwf.core.api.digital_in.DigitalIn.triggerCountSet>`                                                                                                                                            |
+   +----------------+--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger length | *to be documented* | :py:meth:`triggerLengthSet()  <pydwf.core.api.digital_in.DigitalIn.triggerLengthSet>`                                                                                                                                           |
+   +----------------+--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | trigger match  | *to be documented* | :py:meth:`triggerMatchSet()   <pydwf.core.api.digital_in.DigitalIn.triggerMatchSet>`                                                                                                                                            |
+   +----------------+--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Counter functionality
+^^^^^^^^^^^^^^^^^^^^^
+
+.. table:: Counter configuration (4 methods)
+
+   +--------------------------+------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | **setting**              | **type/unit**                            | **methods**                                                                                                                                                                                                           |
+   +--------------------------+------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | counter configuration    | float [s], int [-]                       | :py:meth:`counterInfo()    <pydwf.core.api.digital_in.DigitalIn.counterInfo>` , :py:meth:`–Set() <pydwf.core.api.analog_in.DigitalIn.counterSet>` , :py:meth:`–Get() <pydwf.core.api.analog_in.DigitalIn.counterGet>` |
+   | counter status           | float [s], float [Hz], int [-]           | :py:meth:`counterStatus()  <pydwf.core.api.digital_in.DigitalIn.counterStatus>`                                                                                                                                       |
+   +--------------------------+------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Miscellaneous settings
+^^^^^^^^^^^^^^^^^^^^^^
+
+The *mixed* setting is obsolete, undocumented, and not understood.
+
+.. todo::
+
+   Figure out what the *mixed* setting does.
+
+.. table:: Miscellaneous settings (1 method)
+
+   +---------------+---------------+----------------------------------------------------------------------+
+   | **operation** | **type/unit** |**method**                                                            |
+   +---------------+---------------+----------------------------------------------------------------------+
+   | mixed         | bool          | :py:meth:`mixedSet() <pydwf.core.api.digital_in.DigitalIn.mixedSet>` |
+   +---------------+---------------+----------------------------------------------------------------------+
+
+|DigitalIn| reference
+---------------------
+
+.. autoclass:: pydwf.core.api.digital_in.DigitalIn()
+   :inherited-members:

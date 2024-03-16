@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example scripts &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="About the DWF C Library" href="C_Library.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pydwf
+              <img src="../_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome to <em>pydwf</em> !</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_exceptions.html"><em>pydwf</em> exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydwf_api/pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DigilentWaveformsDevices.html">Digilent Waveforms devices and their configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="C_Library.html">About the DWF C Library</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example scripts</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/background/Examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-scripts">
+<h1>Example scripts<a class="headerlink" href="#example-scripts" title="Link to this heading"></a></h1>
+<p>The Python examples can be installed locally after installing the <em>pydwf</em> package by executing the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pydwf<span class="w"> </span>extract-examples
+</pre></div>
+</div>
+<p>This will create a local directory called <em>pydwf-examples</em> containing the Python examples that demonstrate many of the capabilities of the Digilent Waveforms devices and <em>pydwf</em>.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p><strong>This section is currently incomplete.</strong></p>
+<p>Some examples that are currently missing:</p>
+<ul class="simple">
+<li><p>We need more examples for the <a class="reference internal" href="../pydwf_api/DwfDevice.digitalIn.html#pydwf.core.api.digital_in.DigitalIn" title="pydwf.core.api.digital_in.DigitalIn"><code class="xref py py-class docutils literal notranslate"><span class="pre">DigitalIn</span></code></a> and <a class="reference internal" href="../pydwf_api/DwfDevice.digitalOut.html#pydwf.core.api.digital_out.DigitalOut" title="pydwf.core.api.digital_out.DigitalOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">DigitalOut</span></code></a> instruments.</p></li>
+<li><p>The four main instruments need examples for all their modes.</p></li>
+<li><p>We need examples using inter-instrument triggering.</p></li>
+<li><p>We need examples for the <a class="reference internal" href="../pydwf_api/DwfDevice.analogImpedance.html#pydwf.core.api.analog_impedance.AnalogImpedance" title="pydwf.core.api.analog_impedance.AnalogImpedance"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnalogImpedance</span></code></a> functionality.</p></li>
+<li><p>We need examples for the <a class="reference internal" href="../pydwf_api/DwfLibrary.spectrum.html#pydwf.core.api.spectrum.Spectrum" title="pydwf.core.api.spectrum.Spectrum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Spectrum</span></code></a> functionality.</p></li>
+<li><p>We need examples for the <a class="reference internal" href="../pydwf_api/DwfLibrary.html#pydwf.core.dwf_library.DwfLibrary.deviceEnum" title="pydwf.core.dwf_library.DwfLibrary.deviceEnum"><code class="xref py py-attr docutils literal notranslate"><span class="pre">deviceEnum</span></code></a> and <a class="reference internal" href="../pydwf_api/DwfLibrary.deviceControl.html#pydwf.core.api.device_control.DeviceControl" title="pydwf.core.api.device_control.DeviceControl"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceControl</span></code></a> APIs.</p></li>
+</ul>
+</div>
+<p>The following examples are currently provided:</p>
+<p class="rubric"><em>DeviceControl</em> functionality example</p>
+<dl>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/DigitalDiscoveryLedBrightnessParameter.py">DigitalDiscoveryLedBrightnessParameter.py</a></dt><dd><p>Modulate the brightness of the Digital Discovery power-on LED.</p>
+<p>This example only works with the Digital Discovery device.</p>
+</dd>
+</dl>
+<p class="rubric"><em>DeviceEnumeration</em> functionality example</p>
+<p>No example available (yet).</p>
+<p>For now, it is recommended to have a look at the <em>list_devices()</em> function in the <a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf/__main__.py">__main.py__</a> top-level module.</p>
+<p class="rubric"><em>AnalogIn</em> instrument examples</p>
+<dl>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogInSimple.py">AnalogInSimple.py</a></dt><dd><p>This example demonstrates the easiest way to obtain samples from the analog input channels.</p>
+<p>The method used by the example is useful if triggering or precise timing is not important.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogInShiftScanShiftScreenDemo.py">AnalogInShiftScanShiftScreenDemo.py</a></dt><dd><p>This example demonstrates recording using the <em>AnalogIn</em> instrument, in <em>ScanScreen</em> or <em>ScanShift</em> modes.</p>
+<p>The acquisition mode (<em>ScanScreen</em> or <em>ScanShift</em>) can be selected using a command line parameter.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogInRecordMode.py">AnalogInRecordMode.py</a></dt><dd><p>This example demonstrates acquisition using the <em>AnalogIn</em> instrument.</p>
+<p>The script emits sinusoid signals on the first two channels of the <em>AnalogOut</em> instrument, and continuously samples the first two channels of the <em>AnalogIn</em> instrument.</p>
+<p>This example assumes that the analog output channels are connected to the analog input channels.</p>
+<p>Availability of the <a class="reference external" href="https://matplotlib.org/">matplotlib</a> package is assumed for plotting results.</p>
+</dd>
+</dl>
+<p class="rubric"><em>AnalogOut</em> instrument examples</p>
+<dl>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogOutShowChannelAndNodeInfo.py">AnalogOutShowChannelAndNodeInfo.py</a></dt><dd><p>This program starts by selecting the device configuration that has the largest count of analog output channels.</p>
+<p>It then enumerates all these output channels and shows their capabilities, including all sub-nodes of each channel, and <em>their</em> capabilities.</p>
+<p>This example is mostly interesting to show the capabilities of the rarely used third and fourth analog output channels of the Analog Discovery 2, which are only available in one device configuration. These two extra channels are essentially the V+ and V- power supply outputs.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogOutSimple.py">AnalogOutSimple.py</a></dt><dd><p>Show simple control of the analog output channels of the <em>AnalogOut</em> instrument.</p>
+<p>This example programs an <em>AnalogOut</em> output channel for a square output waveform, but doesn’t actually start it. By configuring the channel to drive the <em>Initial</em> waveform value on its output while idle, the output voltage can be controlled directly by manipulating the channel’s <em>amplitude</em> setting.</p>
+<p>This method is useful if the output needs to change only occasionally, and if triggering or precise timing is not important.</p>
+<p>This technique is much faster than the alternative approach of changing the channel’s <em>offset</em> setting, which takes a long time to stabilize after a change due to the presence of an analog low-pass filter.
+The demonstrated technique can change the analog output value at a rate of several hundred times per second.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogOutPlayFunction.py">AnalogOutPlayFunction.py</a></dt><dd><p>Play one of the built-in analog output waveforms using the <em>AnalogOut</em> instrument.</p>
+<p>The user can select the waveform, frequency, amplitude, offset, phase, and symmetry parameters using command line options.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogOutShowFunctionSymmetry.py">AnalogOutShowFunctionSymmetry.py</a></dt><dd><p>Show the way the <em>symmetry</em> setting changes the behavior of the built-in analog output waveforms of the <em>AnalogOut</em> instrument.</p>
+<p>This example assumes that the first analog output channel is connected to the first analog input channel.</p>
+<p>Availability of the <a class="reference external" href="https://matplotlib.org/">matplotlib</a> package is assumed for plotting results.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogOutAmplitudeModulationDemo.py">AnalogOutAmplitudeModulationDemo.py</a></dt><dd><p>Show the way Amplitude Modulation (AM) changes a carrier sine wave using AnalogOut instrument.</p>
+<p>This example assumes that the first analog output channel is connected to the first analog input channel.</p>
+<blockquote>
+<div><p>Availability of the <a class="reference external" href="https://matplotlib.org/">matplotlib</a> package is assumed for plotting results.</p>
+</div></blockquote>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogOutPlayCustomWaveform.py">AnalogOutPlayCustomWaveform.py</a></dt><dd><p>Show a custom waveform on CH1 of the <em>AnalogOut</em> instrument. The custom waveform can be given as a file containing human-readable numbers.
+If no filename is specified, a default custom waveform is generated.</p>
+<p>Hook up the first analog output channel of your device to an oscilloscope to see the custom waveform.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogOutContinuousPlay.py">AnalogOutContinuousPlay.py</a></dt><dd><p>Show either a circle or a polygon on CH1 (X) and CH2 (Y) of the <em>AnalogOut</em> instrument.</p>
+<p>To properly appreciate this example, hook up these two channels to a second oscilloscope that is configured for X-vs-Y display mode.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogOutSpinningGlobe.py">AnalogOutSpinningGlobe.py</a></dt><dd><p>Show a spinning globe on CH1 (X) and CH2 (Y) of the <em>AnalogOut</em> instrument.</p>
+<p>To properly appreciate this example, hook up these two channels to a second oscilloscope that is configured for X-vs-Y display mode.</p>
+</dd>
+</dl>
+<p class="rubric"><em>AnalogIO</em> functionality example</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/AnalogIO.py">AnalogIO.py</a></dt><dd><p>This example enumerates all <em>AnalogIO</em> channels and their nodes. After that, it continuously reports the quantities associated with the “USB Monitor” channel.</p>
+</dd>
+</dl>
+<p class="rubric">Analog Impedance examples</p>
+<p>Not yet available.</p>
+<p class="rubric"><em>DigitalIn</em> instrument examples</p>
+<p>Not yet available.</p>
+<p class="rubric"><em>DigitalOut</em> instrument examples</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/DigitalOutShowStatusDuringPulsePlayback.py">DigitalOutShowStatusDuringPulsePlayback.py</a></dt><dd><p>Demonstrate the behavior of the <em>DigitalOut</em> instrument status during Pulse playback.</p>
+</dd>
+</dl>
+<p class="rubric"><em>DigitalIO</em> functionality example</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/DigitalIO.py">DigitalIO.py</a></dt><dd><p>Demonstrate static monitoring and control of the digital input and output pins.</p>
+</dd>
+</dl>
+<p class="rubric">Protocol examples</p>
+<dl>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/ProtocolUART.py">ProtocolUART.py</a></dt><dd><p>An example showing loopback transmission and reception using the UART protocol.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/ProtocolCAN.py">ProtocolCAN.py</a></dt><dd><p>An example showing loopback transmission and reception of messages using the CAN bus protocol.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/ProtocolSPI.py">ProtocolSPI.py</a></dt><dd><p>This example demonstrates continuous readout of an ADXL345 triple-axis accelerometer using the SPI protocol.</p>
+<p>The program expects to find the accelerometer IC attached to the proper pins. See the source code for a description on how to hook up an ADXL345 to make this work.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/sidneycadot/pydwf/blob/master/source/pydwf-examples/ProtocolI2C.py">ProtocolI2C.py</a></dt><dd><p>This example demonstrates continuous readout of an ADXL345 triple-axis accelerometer using the I²C protocol.</p>
+<p>The program expects to find the accelerometer IC attached to the proper pins. See the source code for a description on how to hook up an ADXL345 to make this work.</p>
+</dd>
+</dl>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="C_Library.html" class="btn btn-neutral float-left" title="About the DWF C Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

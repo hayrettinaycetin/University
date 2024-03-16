@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to pydwf ! &mdash; pydwf 1.1.19 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=a253fdbc"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview of pydwf" href="pydwf_api/pydwf_overview.html" />
+    <link rel="prev" title="pydwf 1.1.19 — Table of Contents" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #73a886" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pydwf
+              <img src="_static/pydwf-logo-200x125.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Welcome to <em>pydwf</em> !</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#supported-devices">Supported devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-hosting">Project hosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-using-pip">Installation using <em>pip</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The pydwf package</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_api/pydwf_overview.html">Overview of <em>pydwf</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_api/DwfLibraryToC.html">The <em>DwfLibrary</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_api/DwfDeviceToC.html">The <em>DwfDevice</em> class and its attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_api/pydwf_exceptions.html"><em>pydwf</em> exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_api/pydwf_enumeration_types.html"><em>pydwf</em> enumeration types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pydwf_api/pydwf_utilities.html"><em>pydwf</em> utilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="background/CommandLineTool.html">Using <em>pydwf</em> as a command line tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background/Triggering.html">Triggering explained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background/DeviceParameters.html">Device parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background/DigilentWaveformsDevices.html">Digilent Waveforms devices and their configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background/C_Library.html">About the DWF C Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background/Examples.html">Example scripts</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #73a886" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pydwf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to <em>pydwf</em> !</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/welcome.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-pydwf">
+<h1>Welcome to <em>pydwf</em> !<a class="headerlink" href="#welcome-to-pydwf" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Important Notice</strong></p>
+<p>Following Digilent’s decision in October 2023 to require creation of a login account to download the
+Waveforms software and the accompanying library that is needed to use their measurement devices,
+I decided to suspend my work on pydwf indefinitely. There will be no support for new features, no bug
+fixes, and no more user support from me either via Digilent’s user forum or via other channels.</p>
+<p>The primary reason for this is that I consider it unethical to sell a hardware device that requires
+accompanying software downloads if those software downloads require a mandatory login account, given
+that account creation (1) requires mandatory acceptance of Terms and Conditions that were not part
+of the original hardware sale; and (2) requires the user to register personally identifiable data.</p>
+<p>I realize that these kinds of unsavory practices are pervasive in the brave new world of modern
+technology, but my motivation to add value for such devices in my free time is precisely zero.</p>
+<p>So for the time being (and probably forever, since I don’t expect Digilent to reverse course),
+version 1.1.19 will be the last pydwf release. It is essentially identical to version 1.1.18,
+with this notice prominently added.</p>
+<p>Digilent used to be a pretty cool engineering-first company, providing very nice FPGA development
+boards and their excellent-value Analog Discovery devices. Unfortunately, their original customer
+oriented reputation is rapidly deteriorating by adopting customer-unfriendly practices, probably
+as a result of their acquisition by National Instruments back in 2013. It is all very unfortunate.</p>
+<p><strong>Winding down pydwf</strong></p>
+<ul class="simple">
+<li><p>I have taken the Github repository private on 18 October 2023 to prevent uncoordinated forks.</p></li>
+<li><p>I am considering what to do with the existing pydwf packages on PyPI and the documentation on
+ReadTheDocs. For now they will remain, but at some point in the future I may remove them.</p></li>
+</ul>
+<p>Given all this, if you are considering using pydwf for new projects: I’d advice against it.</p>
+<p>If you have a dependency on pydwf, this may be a good time to consider ways to cut that dependency.</p>
+<p>I apologise for the inconvenience.</p>
+</div>
+<p>This is the documentation of <em>pydwf</em>, a Python package to control the Digilent Waveforms lineup of electronic test and measurement devices made by <a class="reference external" href="https://digilent.com/">Digilent</a>.</p>
+<p>It wraps all functions of <em>libdwf</em>, the <a class="reference internal" href="background/C_Library.html"><span class="doc">low-level C library</span></a> provided by Digilent, in an easy-to-use, class-based Python API. Like the C library, the <em>pydwf</em> package supports Windows, Linux (Intel and ARM), and macOS.</p>
+<p>The DWF library can be downloaded and installed from Digilent’s website.</p>
+<p>The current release of <em>pydwf</em> is version 1.1.19.
+It is based on version 3.20.1 of <em>libdwf</em>, but it should also work with other versions.</p>
+<p>The <em>pydwf</em> package comes with documentation and a number of ready-to-run <a class="reference internal" href="background/Examples.html"><span class="doc">examples</span></a> that demonstrate how <em>pydwf</em> can be used to perform common and not-so-common tasks.</p>
+<p>A <a class="reference internal" href="background/CommandLineTool.html"><span class="doc">command-line tool</span></a> is provided that can be used, among other things, to list the available Digilent Waveforms devices and their configurations.</p>
+<p>This section contains information about the project. Readers who want to learn how to use <em>pydwf</em> are referred to the <a class="reference internal" href="pydwf_api/pydwf_overview.html"><span class="doc">API documentation</span></a>.</p>
+<section id="supported-devices">
+<h2>Supported devices<a class="headerlink" href="#supported-devices" title="Link to this heading"></a></h2>
+<p>The following devices can be controlled using <em>pydwf</em>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/electronics-explorer/start">Electronics Explorer</a> (legacy)</p></li>
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery/start">Analog Discovery</a> (legacy)</p></li>
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-2/start">Analog Discovery 2</a></p></li>
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-3/start">Analog Discovery 3</a></p></li>
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/digital-discovery/start">Digital Discovery</a></p></li>
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-studio/start">Analog Discovery Studio</a></p></li>
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/discovery-power-supply-3340/start">DPS3340 Discovery USB power supply</a></p></li>
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-pro-3x50/start">Analog Discovery Pro 3x50</a> (3250 and 3450 models)</p></li>
+<li><p><a class="reference external" href="https://digilent.com/reference/test-and-measurement/analog-discovery-pro-5250/start">Analog Discovery Pro 5250</a> (a National Instruments VB-8012 rebranded as a Digilent device; Windows only)</p></li>
+</ul>
+<p>The <em>pydwf</em> package has been extensively tested with the Analog Discovery 2, Digital Discovery, and ADP3450 devices. It should also work with the other devices listed, but these haven’t been tested. If you have such a device and encounter problems, please report an issue on the <a class="reference external" href="https://github.com/sidneycadot/pydwf/issues">GitHub issue tracker</a>.</p>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p>The <em>pydwf</em> package requires Python 3.6 or higher.</p>
+<p>In order for <em>pydwf</em> to work, recent versions of the Digilent Adept and Digilent Waveforms packages must be installed. These provide the C libraries that <em>pydwf</em> uses to interact with devices. Generally speaking, if the Waveforms GUI application provided by Digilent works on your system, you’re good to go.</p>
+<p><em>pydwf</em> depends on the <a class="reference external" href="https://numpy.org/">numpy</a> package to handle the considerable amount of data transferred between the PC and Digilent Waveforms devices when performing high-speed signal generation or capture operations.</p>
+<p>Some of the <a class="reference internal" href="background/Examples.html"><span class="doc">examples</span></a> depend on the <a class="reference external" href="https://matplotlib.org/">matplotlib</a> package, but <em>pydwf</em> itself will work without it.</p>
+</section>
+<section id="project-hosting">
+<h2>Project hosting<a class="headerlink" href="#project-hosting" title="Link to this heading"></a></h2>
+<p>The project repository and issue tracker are hosted on <a class="reference external" href="https://github.com/">GitHub</a>:</p>
+<p><a class="reference external" href="https://github.com/sidneycadot/pydwf/">https://github.com/sidneycadot/pydwf/</a></p>
+</section>
+<section id="installation-using-pip">
+<h2>Installation using <em>pip</em><a class="headerlink" href="#installation-using-pip" title="Link to this heading"></a></h2>
+<p>The installable package is hosted on <a class="reference external" href="https://pypi.org/">PyPI</a>:</p>
+<p><a class="reference external" href="https://pypi.org/project/pydwf/">https://pypi.org/project/pydwf/</a></p>
+<p>This allows installation using the standard <em>pip</em> (or <em>pip3</em>) tool:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pydwf
+</pre></div>
+</div>
+<p>After installing <em>pydwf</em>, the following command will show the version of <em>pydwf</em> and the underlying DWF library:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pydwf<span class="w"> </span>version
+</pre></div>
+</div>
+<p>The following command will list all Digilent Waveforms devices connected to the system and, for each of them, list the supported configurations:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pydwf<span class="w"> </span>list<span class="w"> </span>-c
+</pre></div>
+</div>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
+<p>The project documentation is hosted on <a class="reference external" href="https://readthedocs.org/">Read The Docs</a>. The latest version can be reached via the following link:</p>
+<p><a class="reference external" href="https://pydwf.readthedocs.io/en/latest/">https://pydwf.readthedocs.io/en/latest/</a></p>
+<p>If desired, the documentation can also be installed locally after installing the package by executing the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pydwf<span class="w"> </span>extract-html-docs
+</pre></div>
+</div>
+<p>This will create a local directory called <em>pydwf-docs-html</em> containing the project documentation in HTML format.</p>
+<p>Alternatively, a PDF version of the manual can be extracted as well:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pydwf<span class="w"> </span>extract-pdf-manual
+</pre></div>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>The Python <a class="reference internal" href="background/Examples.html"><span class="doc">examples</span></a> can be installed locally after installing the <em>pydwf</em> package by executing the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pydwf<span class="w"> </span>extract-examples
+</pre></div>
+</div>
+<p>This will create a local directory called <em>pydwf-examples</em> containing the Python examples that demonstrate many of the capabilities of the Digilent Waveforms devices and <em>pydwf</em>.</p>
+<p>These examples are intended as a useful starting point for your own Python scripts. See the <a class="reference internal" href="background/Examples.html"><span class="doc">examples overview</span></a> for more information.</p>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading"></a></h2>
+<p>Many thanks to Digilent for making the awesome Waveforms devices, and to provide not only the very capable <em>Waveforms</em> GUI software, but also the cross-platform SDK on which <em>pydwf</em> is based. Great work!</p>
+<p>My company <a class="reference external" href="https://www.jigsaw.nl/">Jigsaw B.V.</a> supported the effort to make <em>pydwf</em>. If you need any kind of high-tech software (with or without Digilent Waveforms devices), and you’re somewhat in the vicinity of Delft, The Netherlands, <a class="reference external" href="https://jigsaw.nl/#Contact">give us a call</a>.</p>
+<p>Thanks to my longtime friend Pepijn for proof-reading the documentation and providing his perspective on several issues that came up while implementing <em>pydwf</em>. The package is a lot better because of your help.</p>
+<p>Lastly, thanks to Petra for your patience with having all kinds of electronics equipment in the living room while developing this package (and before, and after, …). You may not share my enthusiasm for this particular hobby, but I am very fortunate that you are at least enthusiastic about my enthusiasm, if that makes sense.</p>
+<p><em>— SC</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="pydwf 1.1.19 — Table of Contents" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pydwf_api/pydwf_overview.html" class="btn btn-neutral float-right" title="Overview of pydwf" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019–2023, Sidney Cadot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

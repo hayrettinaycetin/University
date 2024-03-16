@@ -1,0 +1,34 @@
+.. include:: /substitutions.rst
+
+SPI protocol
+============
+
+The SPI protocol support allows a Digilent Waveforms device to be used as a simple `SPI <https://en.wikipedia.org/wiki/Serial_Peripheral_Interface>`_ bus master.
+
+.. todo::
+
+    **This section is currently incomplete.**
+
+    It does not properly explain the meaning of some of the settings that influence the behavior of the SPI functionality, and the difference between the several write/read methods.
+
+Using the SPI protocol functionality
+------------------------------------
+
+To use the SPI protocol functionality you first need to initialize a |DwfLibrary| instance. Next, you open a specific device. The device's SPI protocol functionality can now be accessed via its |protocol.spi:link| attribute, which is an instance of the |ProtocolSPI:link| class:
+
+.. code-block:: python
+
+   from pydwf import DwfLibrary
+   from pydwf.utilities import openDwfDevice
+
+   dwf = DwfLibrary()
+
+   with openDwfDevice(dwf) as device:
+       spi = device.protocol.spi
+       spi.reset()
+
+|ProtocolSPI| reference
+-----------------------
+
+.. autoclass:: pydwf.core.api.protocol_spi.ProtocolSPI()
+   :inherited-members:
